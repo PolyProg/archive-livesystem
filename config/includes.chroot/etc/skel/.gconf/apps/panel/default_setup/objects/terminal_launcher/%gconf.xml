@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="toplevel_id" mtime="1331660025" type="string">
+		<stringvalue>top_panel</stringvalue>
+	</entry>
+	<entry name="object_type" mtime="1331660025" type="string">
+		<stringvalue>launcher-object</stringvalue>
+	</entry>
+	<entry name="launcher_location" mtime="1331660025" type="string">
+		<stringvalue>/usr/share/applications/gnome-terminal.desktop</stringvalue>
+	</entry>
+	<entry name="action_type" mtime="1331660025" type="string">
+		<stringvalue>lock</stringvalue>
+	</entry>
+	<entry name="position" mtime="1331660024" type="int" value="300"/>
+	<entry name="use_menu_path" mtime="1331660024" type="bool" value="false"/>
+	<entry name="use_custom_icon" mtime="1331660024" type="bool" value="false"/>
+	<entry name="panel_right_stick" mtime="1331660024" type="bool" value="false"/>
+	<entry name="locked" mtime="1331660024" type="bool" value="true"/>
+</gconf>

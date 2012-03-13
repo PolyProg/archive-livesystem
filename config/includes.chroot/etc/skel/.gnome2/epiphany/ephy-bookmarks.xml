@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ephy_bookmarks version="1.03">
+  <!--Do not rely on this file, it's only for internal use. Use bookmarks.rdf instead.-->
+  <node id="30">
+    <property id="2" value_type="gchararray">Team Overview</property>
+    <property id="3" value_type="gchararray">https://ec2.hc2.ch/team</property>
+    <property id="4" value_type="gchararray"> team overview</property>
+    <property id="7" value_type="gchararray">http://ec2.hc2.ch/favicon.ico</property>
+    <parent id="0"/>
+    <parent id="3"/>
+  </node>
+  <node id="31">
+    <property id="2" value_type="gchararray">Helvetic Coding Contest</property>
+    <property id="3" value_type="gchararray">http://hc2.ch/</property>
+    <property id="4" value_type="gchararray"> helvetic coding contest</property>
+    <property id="7" value_type="gchararray">http://hc2.ch/res/favicon.png</property>
+    <parent id="0"/>
+    <parent id="3"/>
+  </node>
+  <node id="32">
+    <property id="2" value_type="gchararray">HC2 Documentation Index</property>
+    <property id="3" value_type="gchararray">http://doc.hc2.ch/</property>
+    <property id="4" value_type="gchararray"> hc2 documentation index</property>
+    <property id="7" value_type="gchararray">http://doc.hc2.ch/favicon.ico</property>
+    <parent id="0"/>
+    <parent id="3"/>
+  </node>
+</ephy_bookmarks>

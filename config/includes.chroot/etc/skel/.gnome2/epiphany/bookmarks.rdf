@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ephy="http://gnome.org/ns/epiphany#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <channel rdf:about="file:///home/polyprog/.gnome2/epiphany/bookmarks.rdf">
+    <title>Epiphany bookmarks</title>
+    <link>http://www.gnome.org/projects/epiphany/</link>
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="https://ec2.hc2.ch/team"/>
+        <rdf:li rdf:resource="http://hc2.ch/"/>
+        <rdf:li rdf:resource="http://doc.hc2.ch/"/>
+      </rdf:Seq>
+    </items>
+  </channel>
+  <item rdf:about="https://ec2.hc2.ch/team">
+    <title>Team Overview</title>
+    <link>https://ec2.hc2.ch/team</link>
+  </item>
+  <item rdf:about="http://hc2.ch/">
+    <title>Helvetic Coding Contest</title>
+    <link>http://hc2.ch/</link>
+  </item>
+  <item rdf:about="http://doc.hc2.ch/">
+    <title>HC2 Documentation Index</title>
+    <link>http://doc.hc2.ch/</link>
+  </item>
+</rdf:RDF>
