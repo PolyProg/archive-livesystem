@@ -42,27 +42,19 @@ setup_firewall() {
   # Allow DNS
   /sbin/iptables --append OUTPUT --protocol udp --dport domain --jump ACCEPT
 
-  # Wait until network is up (FIXME: this is kind of a hack...)
-  n_wait=0
-  while [ "$n_wait" -lt 3 ] && ! host -W5 m1.hc2.ch >/dev/null 2>&1; do
-      n_wait=$((n_wait + 1))
-  done
-
   # Allow HTTP to selected hosts
   # hc2.ch, doc.hc2.ch
   /sbin/iptables --append OUTPUT --protocol tcp --destination 62.75.159.9 --dport http --jump ACCEPT
   # polyprog.epfl.ch
   /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport http --jump ACCEPT
-  # m[123].hc2.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination m1.hc2.ch --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination m2.hc2.ch --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination m3.hc2.ch --dport http --jump ACCEPT
+  # ec2.hc2.ch
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 23.21.171.246 --dport http --jump ACCEPT
 
   # All other outgoing packets are logged and rejected
   /sbin/iptables --append OUTPUT --jump logreject
 
-  # Allow incoming ssh connections from EPFL
-  /sbin/iptables --append INPUT --protocol tcp --source 128.178.0.0/16 --dport ssh --jump ACCEPT
+  # Allow incoming ssh connections
+  /sbin/iptables --append INPUT --protocol tcp --dport ssh --jump ACCEPT
 }
 
 stop_firewall() {
