@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+cd binary/live
+vmlinuz=$(ls vmlinuz* | tail -n1)
+ln  $vmlinuz vmlinuz || true
+initrd=$(ls initrd.img* | tail -n1)
+ln  $initrd initrd.img || true

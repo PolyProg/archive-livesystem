@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Makes sure the polyprog firewall is started at boot time
+insserv polyprog-firewall

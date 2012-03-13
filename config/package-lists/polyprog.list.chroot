@@ -1,0 +1,38 @@
+# Standard
+#include <standard>
+
+xorg
+keyboard-configuration
+
+# Desktop environment
+desktop-base
+gnome-core
+gtk2-engines
+
+# Utilities
+bash-completion
+less
+rsync
+bind9-host
+
+# Editors
+vim-gnome emacs geany
+eclipse-jdt
+eclipse-cdt
+
+# Compilers and such...
+g++ gcc
+libgmp-dev
+libstdc++6-4.6-dev
+libc6-dev
+default-jdk
+fp-compiler fp-units-math
+make
+ddd gdb
+
+# Scientific tools
+gcalctool
+
+# Security
+ssh
+iptables

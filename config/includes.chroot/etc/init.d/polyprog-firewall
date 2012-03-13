@@ -1,0 +1,98 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          polyprog-firewall
+# Required-Start:    $network $named
+# Required-Stop:     $network $named
+# Default-Start:     S
+# Default-Stop:      
+# Short-Description: Starts the PolyProg Firewall
+# Description:       Starts the PolyProg Firewall. This ensures that
+#                    contestants cannot access unauthorized websites.
+### END INIT INFO
+
+set -e
+. /lib/lsb/init-functions
+
+N=/etc/init.d/polyprog-firewall
+
+setup_firewall() {
+  # Flush all rules
+  /sbin/iptables --flush
+  /sbin/iptables --delete-chain
+
+  # A chain to log and then reject packets
+  /sbin/iptables --new-chain logreject
+  /sbin/iptables --append logreject --jump LOG --log-prefix "polyprog-firewall: " --match limit --limit 20/minute
+  /sbin/iptables --append logreject --jump REJECT
+
+  # General policies: drop everything
+  /sbin/iptables --policy INPUT DROP
+  /sbin/iptables --policy FORWARD DROP
+  /sbin/iptables --policy OUTPUT DROP
+
+  # Accept related packets
+  /sbin/iptables --append INPUT --match state --state ESTABLISHED,RELATED -j ACCEPT 
+  /sbin/iptables --append OUTPUT --match state --state ESTABLISHED,RELATED -j ACCEPT 
+
+  # Allow loopback
+  /sbin/iptables --append INPUT --source 127.0.0.1/8 --destination 127.0.0.1/8 -j ACCEPT 
+  /sbin/iptables --append OUTPUT --source 127.0.0.1/8 --destination 127.0.0.1/8 -j ACCEPT 
+
+  # Allow DNS
+  /sbin/iptables --append OUTPUT --protocol udp --dport domain --jump ACCEPT
+
+  # Wait until network is up (FIXME: this is kind of a hack...)
+  n_wait=0
+  while [ "$n_wait" -lt 3 ] && ! host -W5 m1.hc2.ch >/dev/null 2>&1; do
+      n_wait=$((n_wait + 1))
+  done
+
+  # Allow HTTP to selected hosts
+  # hc2.ch, doc.hc2.ch
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 62.75.159.9 --dport http --jump ACCEPT
+  # polyprog.epfl.ch
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport http --jump ACCEPT
+  # m[123].hc2.ch
+  /sbin/iptables --append OUTPUT --protocol tcp --destination m1.hc2.ch --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination m2.hc2.ch --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination m3.hc2.ch --dport http --jump ACCEPT
+
+  # All other outgoing packets are logged and rejected
+  /sbin/iptables --append OUTPUT --jump logreject
+
+  # Allow incoming ssh connections from EPFL
+  /sbin/iptables --append INPUT --protocol tcp --source 128.178.0.0/16 --dport ssh --jump ACCEPT
+}
+
+stop_firewall() {
+  # Flush all rules
+  /sbin/iptables --flush
+  /sbin/iptables --delete-chain
+
+  # General policies: accept input and output
+  /sbin/iptables --policy INPUT ACCEPT
+  /sbin/iptables --policy FORWARD DROP
+  /sbin/iptables --policy OUTPUT ACCEPT
+}
+
+case "$1" in
+  start)
+	log_action_begin_msg "Setting up PolyProg Firewall"
+        setup_firewall
+        log_action_end_msg $?
+	;;
+  stop)
+	log_action_begin_msg "Stopping PolyProg Firewall"
+        stop_firewall
+        log_action_end_msg $?
+	;;
+  reload|restart|force-reload)
+        ;;
+  *)
+	echo "Usage: $N start|stop" >&2
+	exit 1
+	;;
+esac
+
+exit 0

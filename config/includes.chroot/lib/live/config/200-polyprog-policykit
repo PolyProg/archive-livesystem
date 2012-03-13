@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Sets some policykit permissions for the live user
+
+polyprog_policykit ()
+{
+	# Checking if package is installed
+	if [ -e /var/lib/live/config/polyprog-policykit ]
+	then
+		return
+	fi
+
+	echo -n " polyprog-policykit"
+
+	configure_polyprog_policykit
+}
+
+configure_polyprog_policykit ()
+{
+	mkdir -p /var/lib/polkit-1/localauthority/90-mandatory.d
+
+        cat > /var/lib/polkit-1/localauthority/90-mandatory.d/90-polyprog.pkla << EOF
+# PolyProg Contestants may not do anything unless authorized...
+[PolyProg deny all]
+Identity=unix-user:${LIVE_USERNAME}
+Action=*
+ResultAny=no
+ResultInactive=no
+ResultActive=no
+EOF
+
+	# Creating state file
+	touch /var/lib/live/config/polyprog-policykit
+}
+
+polyprog_policykit

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Sets some gsettings settings that are specific to the polyprog live system
+
+polyprog_gsettings ()
+{
+	# Checking if already configured
+	if [ -e /var/lib/live/config/polyprog-gsettings ]
+	then
+		return
+	fi
+
+	echo -n " polyprog-gsettings"
+
+	configure_polyprog_gsettings
+}
+
+configure_polyprog_gsettings ()
+{
+        # Ensure our schema overrides are applied (FIXME: doesn't work?)
+        glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+	# Creating state file
+	touch /var/lib/live/config/polyprog-gsettings
+}
+
+configure_polyprog_gsettings
