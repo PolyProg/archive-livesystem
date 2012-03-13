@@ -69,10 +69,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.3317361"
-     inkscape:cx="343.82756"
+     inkscape:cx="249.58967"
      inkscape:cy="184.25253"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer5"
      inkscape:window-width="1920"
      inkscape:window-height="1142"
      inkscape:window-x="0"
@@ -136,7 +136,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -279,7 +279,7 @@
        y="-2.511848" />
     <image
        style="display:inline"
-       y="11.26416"
+       y="33.26413"
        x="401.61386"
        id="image4599"
        xlink:href="file:///home/jowagner/polyprog/hc2/ext_logos/polyprog_logo.png"
@@ -287,7 +287,7 @@
        width="34.54007" />
     <image
        style="display:inline"
-       y="322.70844"
+       y="292.70844"
        x="388.65057"
        id="image4610"
        xlink:href="file:///home/jowagner/polyprog/hc2/ext_logos/adnovum_logo.png"
@@ -295,7 +295,7 @@
        width="60.466724" />
     <g
        style="display:inline"
-       transform="matrix(0.12375228,0,0,-0.12375228,401.34419,248.49375)"
+       transform="matrix(0.12375228,0,0,-0.12375228,401.34419,235.82707)"
        inkscape:label="ink_ext_XXXXXX"
        id="g4621">
       <g
@@ -640,7 +640,7 @@
     </g>
     <g
        style="display:inline"
-       transform="matrix(0.25580528,0,0,-0.25580528,398.84807,139.31754)"
+       transform="matrix(0.25580528,0,0,-0.25580528,398.84807,143.98418)"
        inkscape:label="ink_ext_XXXXXX"
        id="g4836">
       <g
