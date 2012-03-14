@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+# Compilation script for the Helvetic Coding Contest
+
+import os
+import re
+import subprocess
+import sys
+
+CFLAGS    = ['-Wall', '-O2', '-pipe']
+CLIBS     = ['-lgmp',]
+CXXFLAGS  = CFLAGS
+CXXLIBS   = CLIBS + ['-lgmpxx',]
+JAVAFLAGS = ['-d', '.']
+
+# Analyze the file that the user specified
+if len(sys.argv) <= 1:
+    print >>sys.stderr, "usage: hc2-compile <sourcefile>"
+    sys.exit(1)
+sourcefile = sys.argv[1]
+
+SOURCEFILE_RE = re.compile(r"""
+    ^
+    (.*?) /?         # an optional path
+    ([^/]+)          # the base name of the program
+    ([123])          # a digit indicating the subproblem
+    \. (c|cpp|java)  # the file extension
+    $""", re.VERBOSE)
+m = SOURCEFILE_RE.match(sourcefile)
+if not m:
+    print >>sys.stderr, "You provided an illegal source file name: " + sourcefile
+    print >>sys.stderr, "I cannot make sense of it unless it is in the following format:"
+    print >>sys.stderr, SOURCEFILE_RE.pattern
+    sys.exit(1)
+sourcedir, sourcebase, sourcedigit, sourceext = m.groups()
+
+# perform the compilation
+if sourcedir != "":
+    os.chdir(sourcedir)
+try:
+    if sourceext == 'c':
+        files = [
+                '%s%s.c' % (sourcebase, sourcedigit),
+                '%sLib%s.c' % (sourcebase, sourcedigit)
+                ]
+        subprocess.check_call(['gcc'] + CFLAGS + CLIBS + ['-o', sourcebase + sourcedigit] + files)
+    elif sourceext == 'cpp':
+        files = [
+                '%s%s.cpp' % (sourcebase, sourcedigit),
+                '%sLib%s.cpp' % (sourcebase, sourcedigit)
+                ]
+        subprocess.check_call(['g++'] + CXXFLAGS + CXXLIBS + ['-o', sourcebase + sourcedigit] + files)
+    elif sourceext == 'java':
+        files = [
+                '%s%s.java' % (sourcebase, sourcedigit),
+                '%sLib%s.java' % (sourcebase, sourcedigit)
+                ]
+        subprocess.check_call(['javac'] + JAVAFLAGS + files)
+except subprocess.CalledProcessError as e:
+    print >>sys.stderr, "Compilation failed."
+    sys.exit(e.returncode)
+
+print >>sys.stderr, "Compilation was successful. Run your program using:"
+print >>sys.stderr, "hc2-run " + (sourcedir + "/" if sourcedir != "" else "") + sourcebase + sourcedigit

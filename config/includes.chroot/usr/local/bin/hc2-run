@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+# Compilation script for the Helvetic Coding Contest
+
+import os
+import re
+import subprocess
+import sys
+
+JAVAARGS = ['-Xrs', '-Xss8m', '-Xmx98304k']
+
+# Analyze the file that the user specified
+if len(sys.argv) <= 1:
+    print >>sys.stderr, "usage: hc2-compile <sourcefile>"
+    sys.exit(1)
+sourcefile = sys.argv[1]
+
+SOURCEFILE_RE = re.compile(r"""
+    ^
+    (.*?) /?             # an optional path
+    ([^/]+)              # the base name of the program
+    ([123])              # a digit indicating the subproblem
+    ((?:.java|.class)?)  # an optional java extension
+    $""", re.VERBOSE)
+m = SOURCEFILE_RE.match(sourcefile)
+if not m:
+    print >>sys.stderr, "You provided an illegal program name: " + sourcefile
+    print >>sys.stderr, "I cannot make sense of it unless it is in the following format:"
+    print >>sys.stderr, SOURCEFILE_RE.pattern
+    sys.exit(1)
+sourcedir, sourcebase, sourcedigit, sourceext = m.groups()
+
+# perform the compilation
+if sourcedir != "":
+    os.chdir(sourcedir)
+try:
+    if os.access(sourcebase + sourcedigit + sourceext, os.X_OK):
+        subprocess.check_call(["./" + sourcebase + sourcedigit + sourceext] + sys.argv[2:])
+    elif os.access(sourcebase + 'Lib' + sourcedigit + '.class', os.R_OK):
+        subprocess.check_call(['java'] + JAVAARGS + [sourcebase + 'Lib' + sourcedigit])
+    else:
+        print >>sys.stderr, "Could not find the program: " + sourcefile
+        sys.exit(1)
+except subprocess.CalledProcessError as e:
+    print >>sys.stderr, "Program run failed."
+    sys.exit(e.returncode)
