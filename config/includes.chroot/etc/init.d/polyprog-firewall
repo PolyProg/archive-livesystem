@@ -45,10 +45,13 @@ setup_firewall() {
   # Allow HTTP to selected hosts
   # hc2.ch, doc.hc2.ch
   /sbin/iptables --append OUTPUT --protocol tcp --destination 62.75.159.9 --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 62.75.159.9 --dport https --jump ACCEPT
   # polyprog.epfl.ch
   /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport https --jump ACCEPT
   # ec2.hc2.ch
   /sbin/iptables --append OUTPUT --protocol tcp --destination 23.21.171.246 --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 23.21.171.246 --dport https --jump ACCEPT
 
   # All other outgoing packets are logged and rejected
   /sbin/iptables --append OUTPUT --jump logreject
