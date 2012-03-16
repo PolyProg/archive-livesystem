@@ -3,7 +3,7 @@
 lb config noauto \
     --apt-indices none \
     --apt-recommends false \
-    --bootappend-live "swapon noroot toram" \
+    --bootappend-live "noprompt swapon noroot toram" \
     --clean \
     --iso-application "PolyProg Live" \
     --iso-publisher "PolyProg" \
