@@ -5,7 +5,6 @@ lb config noauto \
     --apt-recommends false \
     --bootappend-live "noprompt swapon noroot toram" \
     --clean \
-    --grub-splash "/home/jowagner/polyprog/debianlive3/grub_background.png" \
     --includes none \
     --iso-application "PolyProg Live" \
     --iso-publisher "PolyProg" \
