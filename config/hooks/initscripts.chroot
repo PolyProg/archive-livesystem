@@ -1,4 +1,5 @@
 #!/bin/sh
 
 # Makes sure the polyprog firewall is started at boot time
+set -e
 insserv polyprog-firewall

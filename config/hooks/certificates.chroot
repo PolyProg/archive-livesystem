@@ -1,11 +1,12 @@
 #!/bin/sh
 
 # Installs an openssl certificate
+set -e
 cd /etc/ssl/certs
 
 for certificate in /usr/share/ca-certificates/polyprog/*.crt; do
     certificate_basename=$(basename "$certificate" .crt)
-    ln -s "$certificate" $(openssl x509 -hash -noout -in swerc2012.crt).0
+    ln -s "$certificate" $(openssl x509 -hash -noout -in "$certificate").0
     ln -s "$certificate" "$certificate_basename.pem"
 
     openssl verify -CApath /etc/ssl/certs "$certificate_basename.pem"
