@@ -50,8 +50,11 @@ setup_firewall() {
   /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport https --jump ACCEPT
   # ec2.hc2.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 23.21.171.246 --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 23.21.171.246 --dport https --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 54.243.202.58 --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 54.243.202.58 --dport https --jump ACCEPT
+  # repl.hc2.ch
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 54.246.124.168 --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination 54.246.124.168 --dport https --jump ACCEPT
 
   # All other outgoing packets are logged and rejected
   /sbin/iptables --append OUTPUT --jump logreject
