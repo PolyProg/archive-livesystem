@@ -20,25 +20,6 @@ configure_polyprog_gconf ()
         # Configure the browser homepage
         sudo -u "$LIVE_USERNAME" gsettings set org.gnome.Epiphany homepage-url "'http://m1.hc2.ch/'"
 
-        # Disable the computer and trash icon on the desktop
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type bool --set /apps/nautilus/desktop/computer_icon_visible false
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type bool --set /apps/nautilus/desktop/trash_icon_visible false
-
-        # Create a launcher for the terminal in the panel
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type bool --set /apps/panel/default_setup/objects/terminal_launcher/locked true
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type bool --set /apps/panel/default_setup/objects/terminal_launcher/panel_right_stick false
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type bool --set /apps/panel/default_setup/objects/terminal_launcher/use_custom_icon false
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type bool --set /apps/panel/default_setup/objects/terminal_launcher/use_menu_path false
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type int --set /apps/panel/default_setup/objects/terminal_launcher/position 300
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type string --set /apps/panel/default_setup/objects/terminal_launcher/action_type 'lock'
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type string --set /apps/panel/default_setup/objects/terminal_launcher/launcher_location '/usr/share/applications/gnome-terminal.desktop'
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type string --set /apps/panel/default_setup/objects/terminal_launcher/object_type 'launcher-object'
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type string --set /apps/panel/default_setup/objects/terminal_launcher/toplevel_id 'top_panel'
-
-        # Set the list of objects in the panel. Also, disable the problematic mixer applet.
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type list --list-type string --set /apps/panel/default_setup/general/object_id_list '[menu_bar,browser_launcher,terminal_launcher]'
-        sudo -u "$LIVE_USERNAME" gconftool-2 --type list --list-type string --set /apps/panel/default_setup/general/applet_id_list '[window_menu,clock,notification_area,show_desktop_button,window_list,workspace_switcher]'
-
         # Prevent automounting of media
         sudo -u "$LIVE_USERNAME" gconftool-2 --type bool --set /apps/nautilus/preferences/media_automount false
 
