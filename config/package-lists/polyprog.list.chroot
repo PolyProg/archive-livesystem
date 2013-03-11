@@ -7,10 +7,10 @@ sudo
 keyboard-configuration
 
 # Desktop environment
-xserver-xorg
 desktop-base
-gtk2-engines
+epiphany-browser
 file-roller
+xserver-xorg
 
 # Utilities
 bash-completion
