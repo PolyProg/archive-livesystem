@@ -8,8 +8,8 @@ keyboard-configuration
 
 # Desktop environment
 desktop-base
-epiphany-browser
 file-roller
+iceweasel
 xserver-xorg
 
 # Utilities

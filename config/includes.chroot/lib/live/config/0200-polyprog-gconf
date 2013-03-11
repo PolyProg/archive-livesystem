@@ -17,9 +17,6 @@ polyprog_gconf ()
 
 configure_polyprog_gconf ()
 {
-        # Configure the browser homepage
-        sudo -u "$LIVE_USERNAME" gsettings set org.gnome.Epiphany homepage-url "'http://m1.hc2.ch/'"
-
         # Prevent automounting of media
         sudo -u "$LIVE_USERNAME" gconftool-2 --type bool --set /apps/nautilus/preferences/media_automount false
 
