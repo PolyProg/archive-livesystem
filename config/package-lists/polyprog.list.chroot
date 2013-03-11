@@ -1,10 +1,13 @@
-# Standard
-#include <standard>
-
-xorg
+# Required for the live system
+live-config
+console-tools
+iproute
+user-setup
+sudo
 keyboard-configuration
 
 # Desktop environment
+xserver-xorg
 desktop-base
 gtk2-engines
 file-roller
@@ -31,6 +34,6 @@ make
 ddd gdb
 
 # Security
-ssh
 iptables
 nagios-plugins-basic
+ssh
