@@ -24,4 +24,4 @@ configure_polyprog_gsettings ()
 	touch /var/lib/live/config/polyprog-gsettings
 }
 
-configure_polyprog_gsettings
+polyprog_gsettings

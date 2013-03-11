@@ -46,4 +46,4 @@ configure_polyprog_gconf ()
 	touch /var/lib/live/config/polyprog-gconf
 }
 
-configure_polyprog_gconf
+polyprog_gconf
