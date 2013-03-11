@@ -5,7 +5,6 @@ lb config noauto \
     --apt-recommends false \
     --bootappend-live "noprompt swapon noroot toram" \
     --clean \
-    --includes none \
     --iso-application "PolyProg Live" \
     --iso-publisher "PolyProg" \
     --iso-volume "PolyProg Live" \

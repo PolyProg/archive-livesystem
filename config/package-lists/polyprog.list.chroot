@@ -33,3 +33,4 @@ ddd gdb
 # Security
 ssh
 iptables
+nagios-plugins-basic
