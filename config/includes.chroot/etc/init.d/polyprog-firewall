@@ -32,12 +32,12 @@ setup_firewall() {
   /sbin/iptables --policy OUTPUT DROP
 
   # Accept related packets
-  /sbin/iptables --append INPUT --match state --state ESTABLISHED,RELATED -j ACCEPT 
-  /sbin/iptables --append OUTPUT --match state --state ESTABLISHED,RELATED -j ACCEPT 
+  /sbin/iptables --append INPUT --match state --state ESTABLISHED,RELATED --jump ACCEPT 
+  /sbin/iptables --append OUTPUT --match state --state ESTABLISHED,RELATED --jump ACCEPT 
 
   # Allow loopback
-  /sbin/iptables --append INPUT --source 127.0.0.1/8 --destination 127.0.0.1/8 -j ACCEPT 
-  /sbin/iptables --append OUTPUT --source 127.0.0.1/8 --destination 127.0.0.1/8 -j ACCEPT 
+  /sbin/iptables --append INPUT --source 127.0.0.1/8 --destination 127.0.0.1/8 --jump ACCEPT 
+  /sbin/iptables --append OUTPUT --source 127.0.0.1/8 --destination 127.0.0.1/8 --jump ACCEPT 
 
   # Allow DNS
   /sbin/iptables --append OUTPUT --protocol udp --dport domain --jump ACCEPT
@@ -61,6 +61,9 @@ setup_firewall() {
 
   # Allow incoming ssh connections
   /sbin/iptables --append INPUT --protocol tcp --dport ssh --jump ACCEPT
+
+  # Allow PING (outgoing replies are RELATED, hence accepted, too)
+  /sbin/iptables --append INPUT --protocol icmp --icmp-type echo-request --jump ACCEPT
 }
 
 stop_firewall() {
