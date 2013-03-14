@@ -11,6 +11,7 @@ desktop-base
 file-roller
 iceweasel
 xserver-xorg
+libgl1-mesa-dri
 
 # Utilities
 bash-completion
