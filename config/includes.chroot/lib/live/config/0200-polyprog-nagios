@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Sets up the machine so that nagios can connect to it
+
+polyprog_nagios ()
+{
+	# Checking if already configured
+	if [ -e /var/lib/live/config/polyprog-nagios ]
+	then
+		return
+	fi
+
+	echo -n " polyprog-nagios"
+
+	configure_polyprog_nagios
+}
+
+configure_polyprog_nagios ()
+{
+        # Add a nagios user
+        sudo adduser --system --disabled-password --shell /bin/sh nagios
+        sudo chown --recursive nagios:nogroup /home/nagios
+        sudo chmod 600 /home/nagios/.ssh/authorized_keys
+        sudo chmod 700 /home/nagios/.ssh
+
+	# Creating state file
+	touch /var/lib/live/config/polyprog-nagios
+}
+
+polyprog_nagios
