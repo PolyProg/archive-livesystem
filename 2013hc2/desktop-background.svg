@@ -10,7 +10,7 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1600"
+   width="1920"
    height="1200"
    id="svg2"
    version="1.1"
@@ -27,7 +27,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.28744857"
-     inkscape:cx="421.35741"
+     inkscape:cx="-55.249588"
      inkscape:cy="265.73949"
      inkscape:document-units="px"
      inkscape:current-layer="layer_en"
@@ -36,7 +36,7 @@
      inkscape:window-width="1600"
      inkscape:window-height="841"
      inkscape:window-x="0"
-     inkscape:window-y="327"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -75,7 +75,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -86,21 +86,21 @@
      inkscape:label="Background"
      style="display:inline">
     <image
-       width="1749.3466"
-       height="1236.99"
+       width="1928.4161"
+       height="1363.6129"
        xlink:href="file:///home/jbw/polyprog/hc2/poster/poster1/laptop_with_heidi_joey.jpg"
        id="image3761"
-       x="-7.4584804"
-       y="-158.36281" />
+       x="-4.1930161"
+       y="-226.36281" />
     <rect
        style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.78668475;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="rect4843-5"
-       width="1232.8865"
-       height="167.30194"
+       width="1359.0894"
+       height="184.42758"
        x="-39.359085"
-       y="931.79919"
-       ry="43.945259"
-       rx="43.945255" />
+       y="921.39221"
+       ry="48.443661"
+       rx="48.443653" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -109,7 +109,7 @@
      style="display:inline"
      transform="translate(0,147.63782)">
     <g
-       transform="matrix(1.0463156,0,0,1.0463156,95.921877,532.63208)"
+       transform="matrix(1.1534203,0,0,1.1534203,109.76974,481.36488)"
        id="layer1-2"
        inkscape:label="Layer 1">
       <g
@@ -285,7 +285,7 @@
       </g>
     </g>
     <g
-       transform="matrix(0.34540946,0,0,-0.34540946,693.67318,1039.954)"
+       transform="matrix(0.38076685,0,0,-0.38076685,768.70908,1040.6182)"
        inkscape:label="ink_ext_XXXXXX"
        id="g5003">
       <g
@@ -629,14 +629,14 @@
       </g>
     </g>
     <image
-       y="943.5827"
-       x="90.918228"
+       y="934.38202"
+       x="104.2539"
        id="image5218"
        xlink:href="file:///home/jbw/polyprog/2012hc2/ext_logos/polyprog_logo.png"
-       height="94.831139"
-       width="94.831139" />
+       height="104.53841"
+       width="104.53841" />
     <g
-       transform="matrix(1.0116283,0,0,-1.0116283,941.60233,1029.3914)"
+       transform="matrix(1.1151823,0,0,-1.1151823,1042.0172,1028.9743)"
        inkscape:label="ink_ext_XXXXXX"
        id="g5341">
       <g
@@ -876,12 +876,12 @@
     <text
        sodipodi:linespacing="125%"
        id="text2996"
-       y="27.233521"
-       x="81.819839"
-       style="font-size:102.3046875px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#eeb306;fill-opacity:1;stroke:none;font-family:TitilliumText25L;-inkscape-font-specification:TitilliumText25L Heavy"
+       y="28.231846"
+       x="94.224167"
+       style="font-size:112.77697754px;font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#eeb306;fill-opacity:1;stroke:none;font-family:TitilliumText25L;-inkscape-font-specification:TitilliumText25L Heavy"
        xml:space="preserve"><tspan
-         y="27.233521"
-         x="81.819839"
+         y="28.231846"
+         x="94.224167"
          id="tspan2998"
          sodipodi:role="line">Helvetic Coding Contest</tspan></text>
   </g>
