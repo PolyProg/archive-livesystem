@@ -14,4 +14,5 @@ user_pref("browser.download.manager.closeWhenDone", true);
 user_pref("browser.safebrowsing.enabled", false);
 user_pref("browser.safebrowsing.malware.enabled", false);
 user_pref("browser.search.update", false);
-user_pref("browser.startup.homepage", "https://ec2.hc2.ch/team/");
+user_pref("browser.startup.homepage", "http://www.spoj.com/PP2013WC/");
+user_pref("privacy.donottrackheader.enabled", true);
