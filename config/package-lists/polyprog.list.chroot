@@ -27,7 +27,7 @@ eclipse-cdt
 # Compilers and such...
 g++ gcc
 libgmp-dev
-libstdc++6-4.6-dev
+libstdc++-4.8-dev
 libc6-dev
 default-jdk
 fp-compiler fp-units-math
