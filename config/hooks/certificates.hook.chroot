@@ -2,6 +2,8 @@
 
 # Installs an openssl certificate
 set -e
+
+echo "Installing the PolyProg OpenSSL certificate."
 cd /etc/ssl/certs
 
 for certificate in /usr/share/ca-certificates/polyprog/*.crt; do

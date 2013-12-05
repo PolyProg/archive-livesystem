@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+# Installs Eclipse, and creates a menu entry.
+echo "Downloading Eclipse..."
+wget -O /tmp/eclipse.tar.gz http://downloads.typesafe.com/scalaide-pack/3.0.2.vfinal-210-20131028/scala-SDK-3.0.2-vfinal-2.10-linux.gtk.x86_64.tar.gz
+
+echo "Installing Eclipse..."
+cd /opt
+tar xzf /tmp/eclipse.tar.gz
+rm /tmp/eclipse.tar.gz
+
+echo "Creating menu entry for Eclipse..."
+mkdir -p /etc/menu
+cat > /etc/menu/eclipse <<EOF
+?package(local.eclipse):\
+    needs="X11"
+    section="Applications/Programming"\
+    title="Eclipse"\
+    command="/opt/eclipse/eclipse" \
+    icon="/opt/eclipse/icon.xpm"
+EOF
+
+update-menus
+echo "... done installing Eclipse."
