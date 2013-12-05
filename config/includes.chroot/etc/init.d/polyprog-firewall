@@ -49,12 +49,16 @@ setup_firewall() {
   # polyprog.epfl.ch
   /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport https --jump ACCEPT
-  # ec2.hc2.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 107.22.171.102 --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 107.22.171.102 --dport https --jump ACCEPT
-  # repl.hc2.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 54.228.216.68 --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 54.228.216.68 --dport https --jump ACCEPT
+  # yandex.com and www.yandex.com (using dns names here as I'm unsure whether those IPs stay constant)
+  /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.com --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.com --dport https --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination www.yandex.com --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination www.yandex.com --dport https --jump ACCEPT
+  # Contest servers
+  /sbin/iptables --append OUTPUT --protocol tcp --destination contest.yandex.com --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination contest.yandex.com --dport https --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination contest2.yandex.com --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination contest2.yandex.com --dport https --jump ACCEPT
 
   # All other outgoing packets are logged and rejected
   /sbin/iptables --append OUTPUT --jump logreject
