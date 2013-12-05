@@ -24,8 +24,10 @@ bind9-host
 
 # Editors
 vim-gnome emacs geany
-eclipse-jdt
-eclipse-cdt
+
+# Eclipse is now installed using a hook
+#eclipse-jdt
+#eclipse-cdt
 
 # Compilers and such...
 g++ gcc
