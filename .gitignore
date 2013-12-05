@@ -1,0 +1,20 @@
+# Vim
+.*.swp
+
+# Debian live output files
+*.iso
+
+# Debian live generated files
+.build/
+/binary.*
+/binary/
+/cache/
+/chroot.*
+/chroot/
+
+/config/binary
+/config/bootstrap
+/config/build
+/config/chroot
+/config/common
+/config/source

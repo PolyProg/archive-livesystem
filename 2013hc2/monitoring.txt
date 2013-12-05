@@ -1,0 +1,19 @@
+Monitoring
+==========
+
+- uptime: ideally, I'd like a check_boot_time that ensures the machine wasn't
+  rebooted.
+- cpu load: check_load nagios plugin
+- memory load: check_mem from https://github.com/justintime/nagios-plugins
+
+- rsync: execute command, grep total size
+
+- firewall
+  - check that rules are in place
+  - warn if there are many log entries: tail /var/log/syslog | grep polyprog-firewall
+- auth log
+
+Also, need tools to easily install files on all hosts, or execute a command on
+all hosts (to install a file, execute tar xf - and pipe in the file)
+
+
