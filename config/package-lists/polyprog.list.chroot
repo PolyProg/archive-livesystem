@@ -5,6 +5,7 @@ iproute
 user-setup
 sudo
 keyboard-configuration
+locales
 
 # Desktop environment
 desktop-base
@@ -12,6 +13,8 @@ file-roller
 iceweasel
 xserver-xorg
 libgl1-mesa-dri
+gtk2-engines gtk2-engines-pixbuf
+xdg-utils
 
 # Utilities
 bash-completion
