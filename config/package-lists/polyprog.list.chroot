@@ -29,6 +29,10 @@ vim-gnome emacs geany
 #eclipse-jdt
 #eclipse-cdt
 
+# Python
+ipython
+ipython3
+
 # Compilers and such...
 g++ gcc
 libgmp-dev

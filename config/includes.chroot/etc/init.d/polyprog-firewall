@@ -42,6 +42,12 @@ setup_firewall() {
   # Allow DNS
   /sbin/iptables --append OUTPUT --protocol udp --dport domain --jump ACCEPT
 
+  # Allow incoming ssh connections
+  /sbin/iptables --append INPUT --protocol tcp --dport ssh --jump ACCEPT
+
+  # Allow PING (outgoing replies are RELATED, hence accepted, too)
+  /sbin/iptables --append INPUT --protocol icmp --icmp-type echo-request --jump ACCEPT
+
   # Allow HTTP to selected hosts
   # hc2.ch, doc.hc2.ch
   /sbin/iptables --append OUTPUT --protocol tcp --destination 62.75.159.9 --dport http --jump ACCEPT
@@ -56,6 +62,8 @@ setup_firewall() {
   /sbin/iptables --append OUTPUT --protocol tcp --destination www.yandex.com --dport https --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.st --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.st --dport https --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination passport.yandex.com --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination passport.yandex.com --dport https --jump ACCEPT
   # Contest servers
   /sbin/iptables --append OUTPUT --protocol tcp --destination contest.yandex.com --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination contest.yandex.com --dport https --jump ACCEPT
@@ -65,15 +73,8 @@ setup_firewall() {
   /sbin/iptables --append OUTPUT --protocol tcp --destination ajax.googleapis.com --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination ajax.googleapis.com --dport https --jump ACCEPT
 
-
   # All other outgoing packets are logged and rejected
   /sbin/iptables --append OUTPUT --jump logreject
-
-  # Allow incoming ssh connections
-  /sbin/iptables --append INPUT --protocol tcp --dport ssh --jump ACCEPT
-
-  # Allow PING (outgoing replies are RELATED, hence accepted, too)
-  /sbin/iptables --append INPUT --protocol icmp --icmp-type echo-request --jump ACCEPT
 }
 
 stop_firewall() {
