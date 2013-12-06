@@ -8,42 +8,7 @@
  * To make a manual change to preferences, you can visit the URL about:config
  */
 
-user_pref("app.update.lastUpdateTime.addon-background-update-timer", 0);
-user_pref("app.update.lastUpdateTime.background-update-timer", 0);
-user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 0);
-user_pref("app.update.lastUpdateTime.browser-cleanup-thumbnails", 1381523512);
-user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1381525909);
-user_pref("browser.cache.disk.capacity", 358400);
-user_pref("browser.cache.disk.smart_size.first_run", false);
-user_pref("browser.cache.disk.smart_size.use_old_max", false);
-user_pref("browser.cache.disk.smart_size_cached_value", 225280);
 user_pref("browser.download.dir", "/home/polyprog/Desktop");
 user_pref("browser.download.manager.closeWhenDone", true);
-user_pref("browser.migration.version", 7);
-user_pref("browser.pagethumbnails.storage_version", 2);
-user_pref("browser.places.smartBookmarksVersion", 4);
-user_pref("browser.safebrowsing.enabled", false);
-user_pref("browser.safebrowsing.malware.enabled", false);
-user_pref("browser.search.update", false);
-user_pref("browser.startup.homepage", "http://ec2.hc2.ch/");
-user_pref("browser.startup.homepage_override.buildID", "20130917133648");
-user_pref("browser.startup.homepage_override.mstone", "17.0.9");
-user_pref("extensions.blocklist.pingCountVersion", 0);
-user_pref("extensions.bootstrappedAddons", "{}");
-user_pref("extensions.databaseSchema", 14);
-user_pref("extensions.enabledAddons", "%7B972ce4c6-7e08-4474-a285-3208198ce6fd%7D:17.0.9");
-user_pref("extensions.installCache", "[{\"name\":\"app-global\",\"addons\":{\"{972ce4c6-7e08-4474-a285-3208198ce6fd}\":{\"descriptor\":\"/usr/lib/iceweasel/extensions/{972ce4c6-7e08-4474-a285-3208198ce6fd}\",\"mtime\":1381516041000}}}]");
-user_pref("extensions.lastAppVersion", "17.0.9");
-user_pref("extensions.lastPlatformVersion", "17.0.9");
-user_pref("extensions.pendingOperations", false);
-user_pref("extensions.shownSelectionUI", true);
-user_pref("intl.charsetmenu.browser.cache", "ISO-8859-2");
-user_pref("network.cookie.prefsMigrated", true);
-user_pref("places.history.expiration.transient_current_max_pages", 12943);
-user_pref("pref.browser.homepage.disable_button.current_page", false);
+user_pref("browser.startup.homepage", "http://polyprog.epfl.ch/santa.php");
 user_pref("privacy.donottrackheader.enabled", true);
-user_pref("privacy.sanitize.migrateFx3Prefs", true);
-user_pref("toolkit.startup.last_success", 1381525788);
-user_pref("xpinstall.whitelist.add", "");
-user_pref("xpinstall.whitelist.add.180", "");
-user_pref("xpinstall.whitelist.add.36", "");
