@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# Ensures menus are up to date
-update-menus

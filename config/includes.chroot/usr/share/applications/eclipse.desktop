@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Eclipse 
+Type=Application
+Exec=/opt/eclipse/eclipse
+Terminal=false
+Icon=/opt/eclipse/icon.xpm
+GenericName=Integrated Development Environment
+Comment=An IDE for Java, Scala, C++
+NoDisplay=false
+Categories=Development;IDE
