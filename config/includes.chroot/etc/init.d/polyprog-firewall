@@ -11,10 +11,22 @@
 #                    contestants cannot access unauthorized websites.
 ### END INIT INFO
 
-set -e
 . /lib/lsb/init-functions
 
 N=/etc/init.d/polyprog-firewall
+
+wait_for_connectivity() {
+    log_action_begin_msg "Waiting for network connectivity"
+    local n_tries=0
+    while ! host polyprog.epfl.ch >/dev/null 2>&1 && [ "$n_tries" -lt 5 ]; do
+        n_tries="$((ntries + 1))"
+        log_action_cont_msg " waiting"
+        sleep 2
+    done
+
+    [ "$n_tries" -lt 5 ]
+    log_action_end_msg $?
+}
 
 setup_firewall() {
   # Flush all rules
@@ -49,13 +61,13 @@ setup_firewall() {
   /sbin/iptables --append INPUT --protocol icmp --icmp-type echo-request --jump ACCEPT
 
   # Allow HTTP to selected hosts
-  # hc2.ch, doc.hc2.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 62.75.159.9 --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 62.75.159.9 --dport https --jump ACCEPT
+  # doc.hc2.ch
+  /sbin/iptables --append OUTPUT --protocol tcp --destination doc.hc2.ch --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination doc.hc2.ch --dport https --jump ACCEPT
   # polyprog.epfl.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination 128.178.50.212 --dport https --jump ACCEPT
-  # yandex.com and related (using dns names here as I'm unsure whether those IPs stay constant)
+  /sbin/iptables --append OUTPUT --protocol tcp --destination polyprog.epfl.ch --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination polyprog.epfl.ch --dport https --jump ACCEPT
+  # yandex.com and related
   /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.com --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.com --dport https --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination www.yandex.com --dport http --jump ACCEPT
@@ -90,6 +102,7 @@ stop_firewall() {
 
 case "$1" in
   start)
+        wait_for_connectivity
 	log_action_begin_msg "Setting up PolyProg Firewall"
         setup_firewall
         log_action_end_msg $?
@@ -100,6 +113,10 @@ case "$1" in
         log_action_end_msg $?
 	;;
   reload|restart|force-reload)
+	log_action_begin_msg "Restarting PolyProg Firewall"
+        stop_firewall
+        setup_firewall
+        log_action_end_msg $?
         ;;
   *)
 	echo "Usage: $N start|stop" >&2
