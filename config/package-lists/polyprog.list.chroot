@@ -23,7 +23,7 @@ rsync
 bind9-host
 
 # Editors
-vim-gnome emacs geany
+vim-gnome emacs geany scite
 
 # Eclipse is now installed using a hook
 #eclipse-jdt
