@@ -33,6 +33,9 @@ vim-gnome emacs geany scite
 ipython
 ipython3
 
+# Perl
+perl
+
 # Compilers and such...
 g++ gcc
 libgmp-dev
