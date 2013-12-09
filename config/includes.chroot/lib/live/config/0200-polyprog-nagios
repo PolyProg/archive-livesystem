@@ -18,7 +18,7 @@ polyprog_nagios ()
 configure_polyprog_nagios ()
 {
         # Add a nagios user
-        sudo adduser --system --disabled-password --shell /bin/sh nagios
+        sudo adduser --system --disabled-password --shell /bin/sh --no-create-home nagios
         sudo chown --recursive nagios:nogroup /home/nagios
         sudo chmod 600 /home/nagios/.ssh/authorized_keys
         sudo chmod 700 /home/nagios/.ssh
