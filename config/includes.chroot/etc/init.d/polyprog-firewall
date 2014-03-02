@@ -76,6 +76,8 @@ setup_firewall() {
   /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.st --dport https --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination passport.yandex.com --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination passport.yandex.com --dport https --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination mc.yandex.com --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination mc.yandex.com --dport https --jump ACCEPT
   # Contest servers
   /sbin/iptables --append OUTPUT --protocol tcp --destination contest.yandex.com --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination contest.yandex.com --dport https --jump ACCEPT
