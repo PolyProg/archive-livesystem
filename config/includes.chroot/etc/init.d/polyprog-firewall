@@ -61,31 +61,28 @@ setup_firewall() {
   /sbin/iptables --append INPUT --protocol icmp --icmp-type echo-request --jump ACCEPT
 
   # Allow HTTP to selected hosts
+  # hc2.ch
+  /sbin/iptables --append OUTPUT --protocol tcp --destination hc2.ch --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination hc2.ch --dport https --jump ACCEPT
   # doc.hc2.ch
   /sbin/iptables --append OUTPUT --protocol tcp --destination doc.hc2.ch --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination doc.hc2.ch --dport https --jump ACCEPT
   # polyprog.epfl.ch
   /sbin/iptables --append OUTPUT --protocol tcp --destination polyprog.epfl.ch --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination polyprog.epfl.ch --dport https --jump ACCEPT
-  # yandex.com and related
-  /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.com --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.com --dport https --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination www.yandex.com --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination www.yandex.com --dport https --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.st --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination yandex.st --dport https --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination passport.yandex.com --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination passport.yandex.com --dport https --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination mc.yandex.com --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination mc.yandex.com --dport https --jump ACCEPT
   # Contest servers
-  /sbin/iptables --append OUTPUT --protocol tcp --destination contest.yandex.com --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination contest.yandex.com --dport https --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination contest2.yandex.com --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination contest2.yandex.com --dport https --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination ec2.hc2.ch --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination ec2.hc2.ch --dport https --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination repl.hc2.ch --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination repl.hc2.ch --dport https --jump ACCEPT
+
   # Some web resources that are often used
   /sbin/iptables --append OUTPUT --protocol tcp --destination ajax.googleapis.com --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination ajax.googleapis.com --dport https --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination apis.google.com --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination apis.google.com --dport https --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination www.google-analytics.com --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination ssl.google-analytics.com --dport https --jump ACCEPT
 
   # All other outgoing packets are logged and rejected
   /sbin/iptables --append OUTPUT --jump logreject
