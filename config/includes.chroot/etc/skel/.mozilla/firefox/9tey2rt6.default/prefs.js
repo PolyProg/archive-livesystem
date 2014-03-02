@@ -10,5 +10,5 @@
 
 user_pref("browser.download.dir", "/home/polyprog/Desktop");
 user_pref("browser.download.manager.closeWhenDone", true);
-user_pref("browser.startup.homepage", "http://polyprog.epfl.ch/santa.php");
+user_pref("browser.startup.homepage", "http://hc2.ch/teampage.php");
 user_pref("privacy.donottrackheader.enabled", true);
