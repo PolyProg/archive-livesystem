@@ -42,12 +42,6 @@ Plugin {
         item {
             command=run
         }
-        separator {
-        }
-        item {
-            image=gnome-logout
-            command=logout
-        }
     }
 }
 
@@ -135,16 +129,3 @@ Plugin {
         CenterText=0
     }
 }
-
-Plugin {
-    type = launchbar
-    Config {
-        Button {
-            id=lxde-screenlock.desktop
-        }
-        Button {
-            id=lxde-logout.desktop
-        }
-    }
-}
-
