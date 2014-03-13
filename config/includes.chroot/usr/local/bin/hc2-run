@@ -7,20 +7,23 @@ import re
 import subprocess
 import sys
 
-JAVAARGS = ['-Xrs', '-Xss8m', '-Xmx98304k']
+ARGS = {
+    "java":  ['-Xrs', '-Xss8m', '-Xmx393216k'],
+    "scala": ['-J-Xrs', '-J-Xss8m', '-J-Xmx393216k']
+}
 
 # Analyze the file that the user specified
 if len(sys.argv) <= 1:
-    print >>sys.stderr, "usage: hc2-compile <sourcefile>"
+    print >>sys.stderr, "usage: hc2-run <sourcefile>"
     sys.exit(1)
 sourcefile = sys.argv[1]
 
 SOURCEFILE_RE = re.compile(r"""
     ^
-    (.*?) /?             # an optional path
-    ([^/]+)              # the base name of the program
-    ([123])              # a digit indicating the subproblem
-    ((?:.java|.class)?)  # an optional java extension
+    (.*?) /?                   # an optional path
+    ([^/]+)                    # the base name of the program
+    ([123])                    # a digit indicating the subproblem
+    \. (c|cpp|c11|scala|java)  # the file extension
     $""", re.VERBOSE)
 m = SOURCEFILE_RE.match(sourcefile)
 if not m:
@@ -30,17 +33,19 @@ if not m:
     sys.exit(1)
 sourcedir, sourcebase, sourcedigit, sourceext = m.groups()
 
-# perform the compilation
 if sourcedir != "":
     os.chdir(sourcedir)
+if sourceext in ['c', 'cpp', 'c11']:
+    command = ["./" + sourcebase + sourcedigit] + sys.argv[2:]
+elif sourceext in ['java', 'scala']:
+    command = [sourceext] + ARGS[sourceext] + [sourcebase + 'Lib' + sourcedigit]
+
 try:
-    if os.access(sourcebase + sourcedigit + sourceext, os.X_OK):
-        subprocess.check_call(["./" + sourcebase + sourcedigit + sourceext] + sys.argv[2:])
-    elif os.access(sourcebase + 'Lib' + sourcedigit + '.class', os.R_OK):
-        subprocess.check_call(['java'] + JAVAARGS + [sourcebase + 'Lib' + sourcedigit])
-    else:
-        print >>sys.stderr, "Could not find the program: " + sourcefile
-        sys.exit(1)
+    print >>sys.stderr, " ".join(command)
+    subprocess.check_call(command)
 except subprocess.CalledProcessError as e:
     print >>sys.stderr, "Program run failed."
     sys.exit(e.returncode)
+except OSError as e:
+    print >>sys.stderr, "Program run failed:", e
+    sys.exit(e.errno)
