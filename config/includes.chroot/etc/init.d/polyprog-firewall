@@ -18,13 +18,13 @@ N=/etc/init.d/polyprog-firewall
 wait_for_connectivity() {
     log_action_begin_msg "Waiting for network connectivity"
     local n_tries=0
-    while ! host polyprog.epfl.ch >/dev/null 2>&1 && [ "$n_tries" -lt 3 ]; do
+    while ! host polyprog.epfl.ch >/dev/null 2>&1 && [ "$n_tries" -lt 2 ]; do
         n_tries=$((n_tries + 1))
         log_action_cont_msg " waiting ($n_tries / 3)"
         sleep 2
     done
 
-    [ "$n_tries" -lt 3 ]
+    [ "$n_tries" -lt 2 ]
     log_action_end_msg $?
     return $?
 }
@@ -109,6 +109,7 @@ case "$1" in
         else
             log_warning_msg "Cannot connect to the network. Not setting up PolyProg Firewall."
             log_warning_msg "Please contact PolyProg staff."
+            stop_firewall
             exit 1
         fi
 	;;
