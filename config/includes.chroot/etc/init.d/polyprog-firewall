@@ -2,8 +2,8 @@
 
 ### BEGIN INIT INFO
 # Provides:          polyprog-firewall
-# Required-Start:    $network $named
-# Required-Stop:     $network $named
+# Required-Start:    $network $named polyprog-network
+# Required-Stop:     $network $named polyprog-network
 # Default-Start:     S
 # Default-Stop:      
 # Short-Description: Starts the PolyProg Firewall

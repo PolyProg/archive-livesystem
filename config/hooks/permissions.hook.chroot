@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Sets the correct permissions for some files
+set -e
+
+chown root:root /etc/wpa_supplicant/wpa_supplicant.conf
+chmod 600 /etc/wpa_supplicant/wpa_supplicant.conf
