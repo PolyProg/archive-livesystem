@@ -15,41 +15,9 @@
 N=/etc/init.d/polyprog-network
 
 start_network() {
+    wpa_supplicant -D wired -i eth0 -c /etc/wpa_supplicant/wpa_supplicant.conf -B
     sleep 2
-    echo; echo;
-    echo "I will now attempt to connect to the EPFL network."
-    echo "Please enter a GASPAR username and the corresponding password."
-    echo "This password will not be permanently stored; it will only"
-    echo "be used to obtain network connectivity."
-    echo
-    echo "If you don't have a GASPAR username, please ask the PolyProg"
-    echo "staff for help."
-    echo
-    echo "To continue without connecting to the EPFL network, enter an"
-    echo "empty username."
-    echo
-    local have_password=0
-    if read -p "GASPAR username:" -t 300 gaspar_username; then
-        if [ -n "$gaspar_username" ]; then
-            read -p "password:" -s gaspar_password
-
-            sed -i -e "s/%GASPAR_USERNAME%/$gaspar_username/" /etc/wpa_supplicant/wpa_supplicant.conf
-            sed -i -e "s/%GASPAR_PASSWORD%/$gaspar_password/" /etc/wpa_supplicant/wpa_supplicant.conf
-            have_password=1
-        fi
-    fi
-
-    local status=1
-    if [ "$have_password" -eq "1" ]; then
-        wpa_supplicant -D wired -i eth0 -c /etc/wpa_supplicant/wpa_supplicant.conf -B
-        sleep 2
-        dhclient eth0
-        status=$?
-    else
-        echo "Not connecting to the EPFL network."
-    fi
-
-    return $status
+    dhclient eth0
 }
 
 stop_network() {
