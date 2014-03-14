@@ -25,8 +25,9 @@ wait_for_connectivity() {
     done
 
     [ "$n_tries" -lt 2 ]
-    log_action_end_msg $?
-    return $?
+    local has_connectivity=$?
+    log_action_end_msg $has_connectivity
+    return $has_connectivity
 }
 
 setup_firewall() {
@@ -112,22 +113,22 @@ case "$1" in
             stop_firewall
             exit 1
         fi
-	;;
+        ;;
   stop)
-	log_action_begin_msg "Stopping PolyProg Firewall"
+        log_action_begin_msg "Stopping PolyProg Firewall"
         stop_firewall
         log_action_end_msg $?
-	;;
+        ;;
   reload|restart|force-reload)
-	log_action_begin_msg "Restarting PolyProg Firewall"
+        log_action_begin_msg "Restarting PolyProg Firewall"
         stop_firewall
         setup_firewall
         log_action_end_msg $?
         ;;
   *)
-	echo "Usage: $N start|stop" >&2
-	exit 1
-	;;
+        echo "Usage: $N start|stop" >&2
+        exit 1
+        ;;
 esac
 
 exit 0
