@@ -77,6 +77,9 @@ setup_firewall() {
   /sbin/iptables --append OUTPUT --protocol tcp --destination ec2.hc2.ch --dport https --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination repl.hc2.ch --dport http --jump ACCEPT
   /sbin/iptables --append OUTPUT --protocol tcp --destination repl.hc2.ch --dport https --jump ACCEPT
+  # enclair.epfl.ch
+  /sbin/iptables --append OUTPUT --protocol tcp --destination enclair.epfl.ch --dport http --jump ACCEPT
+  /sbin/iptables --append OUTPUT --protocol tcp --destination enclair.epfl.ch --dport https --jump ACCEPT
 
   # Some web resources that are often used
   /sbin/iptables --append OUTPUT --protocol tcp --destination ajax.googleapis.com --dport http --jump ACCEPT
