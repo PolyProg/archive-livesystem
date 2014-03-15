@@ -10,7 +10,7 @@ import sys
 FLAGS = {
     "c":     ['-Wall', '-O2', '-pipe', '-static'],
     "cpp":   ['-Wall', '-O2', '-pipe', '-static'],
-    "c11":   ['-Wall', '-O2', '-pipe', '-static', '-std=c++11'],
+    "c11":   ['-Wall', '-O2', '-pipe', '-static', '-std=c++11', '-x', 'c++'],
     "java":  ['-d', '.'],
     "scala": []
 }
