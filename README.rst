@@ -14,32 +14,34 @@ advantages:
 This repo contains the following files/folders
 ----------------------------------------------
 
-.
-├── 2012hc2, 2013hc2, ...
-│   Various config files specific to this event. For example, SSH keys because
-│   they change with each new event.
-├── README.rst  -- This file
-├── auto
-│   ├── build
-│   ├── clean
-│   └── config
-│   The principal debian live configuration script
-├── config
-│   This folder contains configuration files for debian live. Some of them are
-│   generated automatically, others are written by hand. The .gitignore file should
-│   exclude the automatically-generated ones.
-│   ├── hooks
-│   │   Scripts to perform various tasks during live system configuration, e.g.,
-│   │   configuring an init script to be run during boot.
-│   ├── includes.binary
-│   │   Files that should go on live system binary image (e.g., boot loader
-│   │   splash screen)
-│   ├── includes.chroot
-│   │   Files that should be present on the live system Note that some files in
-│   │   here aren't version controlled because they are so large (e.g., the
-│   │   Eclipse IDE).
-│   ├── package-lists
-        Lists of packages to be installed on the system
+::
+
+    .
+    ├── 2012hc2, 2013hc2, ...
+    │   Various config files specific to this event. For example, SSH keys because
+    │   they change with each new event.
+    ├── README.rst  -- This file
+    ├── auto
+    │   ├── build
+    │   ├── clean
+    │   └── config
+    │   The principal debian live configuration script
+    ├── config
+    │   This folder contains configuration files for debian live. Some of them are
+    │   generated automatically, others are written by hand. The .gitignore file should
+    │   exclude the automatically-generated ones.
+    │   ├── hooks
+    │   │   Scripts to perform various tasks during live system configuration, e.g.,
+    │   │   configuring an init script to be run during boot.
+    │   ├── includes.binary
+    │   │   Files that should go on live system binary image (e.g., boot loader
+    │   │   splash screen)
+    │   ├── includes.chroot
+    │   │   Files that should be present on the live system Note that some files in
+    │   │   here aren't version controlled because they are so large (e.g., the
+    │   │   Eclipse IDE).
+    │   ├── package-lists
+            Lists of packages to be installed on the system
 
 More information
 ----------------
