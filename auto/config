@@ -11,6 +11,4 @@ lb config noauto \
     --iso-volume "PolyProg Live" \
     --memtest none \
     --mirror-binary http://mirror.switch.ch/ftp/mirror/debian/ \
-    --mirror-bootstrap http://localhost:3142/mirror.switch.ch/ftp/mirror/debian/ \
-    --mirror-chroot-security http://localhost:3142/security.debian.org/ \
     "${@}"
