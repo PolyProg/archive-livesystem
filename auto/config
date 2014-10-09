@@ -5,7 +5,7 @@ lb config noauto \
     --apt-recommends false \
     --bootappend-live "boot=live config quiet splash noprompt swapon noroot toram" \
     --clean \
-    --distribution jessie \
+    --distribution wheezy \
     --iso-application "PolyProg Live" \
     --iso-publisher "PolyProg" \
     --iso-volume "PolyProg Live" \
