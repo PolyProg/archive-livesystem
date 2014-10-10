@@ -26,7 +26,6 @@ bind9-host
 # Editors
 vim-gnome emacs geany scite gedit
 
-# Eclipse is now installed manually
 eclipse-jdt
 eclipse-cdt
 
