@@ -10,5 +10,5 @@
 
 user_pref("browser.download.dir", "/home/polyprog/Desktop");
 user_pref("browser.download.manager.closeWhenDone", true);
-user_pref("browser.startup.homepage", "http://hc2.ch/teampage.php");
+user_pref("browser.startup.homepage", "https://ec2.hc2.ch");
 user_pref("privacy.donottrackheader.enabled", true);

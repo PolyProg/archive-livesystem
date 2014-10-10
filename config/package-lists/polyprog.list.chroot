@@ -24,11 +24,10 @@ rsync
 bind9-host
 
 # Editors
-vim-gnome emacs geany scite
+vim-gnome emacs geany scite gedit
 
-# Eclipse is now installed manually
-#eclipse-jdt
-#eclipse-cdt
+eclipse-jdt
+eclipse-cdt
 
 # Python
 ipython
@@ -40,15 +39,12 @@ perl
 # Compilers and such...
 g++ gcc
 libgmp-dev
-libstdc++-4.8-dev
+libstdc++6-4.7-dev
 libc6-dev
 default-jdk
 fp-compiler fp-units-math
 make
 ddd gdb
-
-# Other packages for the contest
-gnuplot-x11
 
 # Security
 iptables

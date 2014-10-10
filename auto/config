@@ -5,12 +5,10 @@ lb config noauto \
     --apt-recommends false \
     --bootappend-live "boot=live config quiet splash noprompt swapon noroot toram" \
     --clean \
-    --distribution jessie \
+    --distribution wheezy \
     --iso-application "PolyProg Live" \
     --iso-publisher "PolyProg" \
     --iso-volume "PolyProg Live" \
     --memtest none \
     --mirror-binary http://mirror.switch.ch/ftp/mirror/debian/ \
-    --mirror-bootstrap http://localhost:3142/mirror.switch.ch/ftp/mirror/debian/ \
-    --mirror-chroot-security http://localhost:3142/security.debian.org/ \
     "${@}"
