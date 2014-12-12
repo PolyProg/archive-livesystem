@@ -1,0 +1,89 @@
+#!/usr/bin/perl -w
+
+use strict;
+use File::Basename;
+use Nagios::Plugin;
+
+sub format_size {
+    my $size = $_[0];
+    if ($size > 1024*1024*1024) {
+        return sprintf("%.2fGiB", $size / (1024.0*1024*1024));
+    } elsif ($size > 1024*1024) {
+        return sprintf("%.2fMiB", $size / (1024.0*1024));
+    } elsif ($size > 1024) {
+        return sprintf("%.2fKiB", $size / 1024.0);
+    }
+
+    return "${size}B";
+}
+
+my $np = Nagios::Plugin->new(
+    usage => "Usage: %s -H host -r remote_path -b backup_path -i ssh_identity -F ssh_config",
+    version => "0.1",
+    timeout => 60,
+);
+$np->add_arg(
+    spec => 'hostname|H=s',
+    help => 'The host name/address to backup',
+    required => 1,
+);
+$np->add_arg(
+    spec => 'remote-path|r=s',
+    help => 'Which remote path to backup',
+    required => 1,
+);
+$np->add_arg(
+    spec => 'backup-path|b=s',
+    help => 'Where to store the rsync backup',
+    required => 1,
+);
+$np->add_arg(
+    spec => 'ssh-identity|i=s',
+    help => 'An SSH private key file',
+    required => 0,
+);
+$np->add_arg(
+    spec => 'ssh-config|F=s',
+    help => 'An SSH configuration file',
+    required => 0,
+);
+$np->getopts;
+my $hostname = $np->opts->get('hostname');
+my $remote_path = $np->opts->get('remote-path');
+my $backup_path = $np->opts->get('backup-path');
+my $ssh_identity = $np->opts->get('ssh-identity');
+my $ssh_config = $np->opts->get('ssh-config');
+
+if ($ssh_identity) {
+    $ssh_identity = "-i '$ssh_identity'"
+}
+if ($ssh_config) {
+    $ssh_config = "-F '$ssh_config'"
+}
+
+my $command = qq{
+  rsync \\
+    --stats \\
+    --rsh='ssh -q $ssh_identity $ssh_config' \\
+    --archive \\
+    --delete \\
+    'root\@$hostname:$remote_path' \\
+    '$backup_path/$hostname' \\
+    2>&1
+};
+
+my $output = qx{$command};
+my $status = $?;
+
+if ($status != 0) {
+    $np->nagios_exit(CRITICAL, "CRITICAL rsync failed with status $status\n$output");
+} else {
+    if ($output =~ /total size is (\d+)/) {
+        my $size = $1;
+        my $nice_size = format_size($size);
+        $np->add_perfdata(label => "size", value => $size);
+        $np->nagios_exit(OK, "OK rsync: $nice_size");
+    } else {
+        $np->nagios_exit(CRITICAL, "CRITICAL rsync produced weird output\n$output");
+    }
+}

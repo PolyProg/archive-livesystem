@@ -22,3 +22,7 @@
 
 # Large includes that we don't want in git
 /config/includes.chroot/opt/
+
+# SSH keys that need to be unreadable for git
+id_nagios
+id_rsync
