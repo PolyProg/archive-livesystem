@@ -1,6 +1,5 @@
 # Required for the live system
-live-config
-console-tools
+kbd console-data
 iproute
 user-setup
 sudo
@@ -23,7 +22,7 @@ rsync
 bind9-host
 
 # Editors
-vim-gnome emacs geany scite gedit
+vim-gtk emacs geany scite gedit
 
 # Python
 ipython
