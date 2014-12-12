@@ -6,7 +6,6 @@ user-setup
 sudo
 keyboard-configuration
 locales
-wpasupplicant
 
 # Desktop environment
 desktop-base
@@ -26,9 +25,6 @@ bind9-host
 # Editors
 vim-gnome emacs geany scite gedit
 
-eclipse-jdt
-eclipse-cdt
-
 # Python
 ipython
 ipython3
@@ -36,10 +32,13 @@ ipython3
 # Perl
 perl
 
+# Ruby
+ruby
+ri
+
 # Compilers and such...
 g++ gcc
-libgmp-dev
-libstdc++6-4.7-dev
+libstdc++-4.9-dev
 libc6-dev
 default-jdk
 fp-compiler fp-units-math
@@ -48,5 +47,5 @@ ddd gdb
 
 # Security
 iptables
-nagios-plugins-basic
+monitoring-plugins-basic
 ssh

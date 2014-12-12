@@ -2,8 +2,8 @@
 
 ### BEGIN INIT INFO
 # Provides:          polyprog-firewall
-# Required-Start:    $network $named polyprog-network
-# Required-Stop:     $network $named polyprog-network
+# Required-Start:    $network $named
+# Required-Stop:     $network $named
 # Default-Start:     S
 # Default-Stop:      
 # Short-Description: Starts the PolyProg Firewall
@@ -63,31 +63,16 @@ setup_firewall() {
   /sbin/iptables --append INPUT --protocol icmp --icmp-type echo-request --jump ACCEPT
 
   # Allow HTTP to selected hosts
-  # hc2.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination hc2.ch --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination hc2.ch --dport https --jump ACCEPT
-  # doc.hc2.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination doc.hc2.ch --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination doc.hc2.ch --dport https --jump ACCEPT
-  # polyprog.epfl.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination polyprog.epfl.ch --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination polyprog.epfl.ch --dport https --jump ACCEPT
-  # Contest servers
-  /sbin/iptables --append OUTPUT --protocol tcp --destination ec2.hc2.ch --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination ec2.hc2.ch --dport https --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination repl.hc2.ch --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination repl.hc2.ch --dport https --jump ACCEPT
-  # enclair.epfl.ch
-  /sbin/iptables --append OUTPUT --protocol tcp --destination enclair.epfl.ch --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination enclair.epfl.ch --dport https --jump ACCEPT
-
-  # Some web resources that are often used
-  /sbin/iptables --append OUTPUT --protocol tcp --destination ajax.googleapis.com --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination ajax.googleapis.com --dport https --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination apis.google.com --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination apis.google.com --dport https --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination www.google-analytics.com --dport http --jump ACCEPT
-  /sbin/iptables --append OUTPUT --protocol tcp --destination ssl.google-analytics.com --dport https --jump ACCEPT
+  for dest in \
+      hc2.ch doc.hc2.ch polyprog.epfl.ch \
+      mc.yandex.ru social.yandex.ru img.fotki.yandex.ru export.yandex.ru \
+      contest.yandex.ru contest2.yandex.ru front.contest.yandex.net static.yandex.net \
+      passport.yandex.com passport.yandex.ru awaps.yandex.ru \
+      ajax.googleapis.com apis.google.com www.google-analytics.com ssl.google-analytics.com
+  do
+      /sbin/iptables --append OUTPUT --protocol tcp --destination $dest --dport http --jump ACCEPT
+      /sbin/iptables --append OUTPUT --protocol tcp --destination $dest --dport https --jump ACCEPT
+  done
 
   # All other outgoing packets are logged and rejected
   /sbin/iptables --append OUTPUT --jump logreject
