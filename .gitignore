@@ -5,7 +5,8 @@
 *.iso
 
 # Debian live generated files
-.build/
+/.build/
+/build.*
 /binary.*
 /binary/
 /cache/
@@ -19,6 +20,8 @@
 /config/chroot
 /config/common
 /config/source
+
+/live-image-*
 
 # Large includes that we don't want in git
 /config/includes.chroot/opt/

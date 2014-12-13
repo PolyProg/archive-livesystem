@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 lb config noauto \
     --apt-indices false \
     --apt-recommends false \

@@ -1,4 +1,5 @@
 # Required for the live system
+policykit-1
 kbd console-data
 iproute
 user-setup
@@ -14,6 +15,7 @@ xserver-xorg
 libgl1-mesa-dri
 gtk2-engines gtk2-engines-pixbuf
 xdg-utils
+zenity
 
 # Utilities
 bash-completion
