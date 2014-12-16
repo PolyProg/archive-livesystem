@@ -20,7 +20,7 @@ sub format_size {
 my $np = Nagios::Plugin->new(
     usage => "Usage: %s -H host -r remote_path -b backup_path -i ssh_identity -F ssh_config",
     version => "0.1",
-    timeout => 60,
+    timeout => 120,
 );
 $np->add_arg(
     spec => 'hostname|H=s',
@@ -64,7 +64,7 @@ if ($ssh_config) {
 my $command = qq{
   rsync \\
     --stats \\
-    --rsh='ssh -q $ssh_identity $ssh_config' \\
+    --rsh="ssh -q $ssh_identity $ssh_config" \\
     --archive \\
     --delete \\
     'root\@$hostname:$remote_path' \\
