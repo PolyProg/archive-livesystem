@@ -7,6 +7,7 @@ sudo
 keyboard-configuration
 locales
 firmware-linux
+wpasupplicant
 
 # Desktop environment
 desktop-base
