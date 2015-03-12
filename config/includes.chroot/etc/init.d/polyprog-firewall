@@ -65,9 +65,7 @@ setup_firewall() {
   # Allow HTTP to selected hosts
   for dest in \
       hc2.ch doc.hc2.ch polyprog.epfl.ch \
-      mc.yandex.ru social.yandex.ru img.fotki.yandex.ru export.yandex.ru \
-      contest.yandex.ru contest2.yandex.ru front.contest.yandex.net static.yandex.net \
-      passport.yandex.com passport.yandex.ru awaps.yandex.ru \
+      ec2.hc2.ch repl.hc2.ch enclair.epfl.ch \
       ajax.googleapis.com apis.google.com www.google-analytics.com ssl.google-analytics.com
   do
       /sbin/iptables --append OUTPUT --protocol tcp --destination $dest --dport http --jump ACCEPT

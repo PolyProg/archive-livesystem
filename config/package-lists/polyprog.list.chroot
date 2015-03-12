@@ -6,6 +6,7 @@ user-setup
 sudo
 keyboard-configuration
 locales
+firmware-linux
 
 # Desktop environment
 desktop-base
