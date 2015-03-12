@@ -6,7 +6,7 @@ lb config noauto \
     --apt-indices false \
     --apt-recommends false \
     --archive-areas "main contrib non-free" \
-    --bootappend-live "boot=live config quiet splash noprompt swapon noroot toram" \
+    --bootappend-live "boot=live config quiet splash noprompt swapon keyboard-layouts=ch,en keyboard-variants=fr,us noroot toram" \
     --clean \
     --distribution jessie \
     --iso-application "PolyProg Live" \
