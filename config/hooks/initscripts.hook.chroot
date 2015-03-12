@@ -4,4 +4,5 @@
 set -e
 
 echo "Starting PolyProg firewall at boot time..."
+insserv polyprog-network
 insserv polyprog-firewall
