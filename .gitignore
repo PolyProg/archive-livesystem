@@ -29,3 +29,6 @@
 # SSH keys that need to be unreadable for git
 id_nagios
 id_rsync
+
+# Other SSH keys... it might be best if they are not on public github
+id_polyproglive
