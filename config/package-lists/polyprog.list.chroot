@@ -11,7 +11,6 @@ locales
 firmware-linux
 wireless-tools
 wpasupplicant
-firmware-b43-installer
 firmware-atheros
 firmware-brcm80211
 firmware-ipw2x00
@@ -20,6 +19,8 @@ firmware-ralink
 firmware-realtek
 firmware-zd1211
 linux-wlan-ng-firmware
+linux-headers-amd64
+broadcom-sta-dkms
 
 # Desktop environment
 desktop-base
