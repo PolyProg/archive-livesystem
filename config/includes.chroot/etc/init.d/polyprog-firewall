@@ -17,15 +17,21 @@ N=/etc/init.d/polyprog-firewall
 
 wait_for_connectivity() {
     log_action_begin_msg "Waiting for network connectivity"
-    local n_tries=0
-    while ! host polyprog.epfl.ch >/dev/null 2>&1 && [ "$n_tries" -lt 2 ]; do
+    local n_tries=1
+    local max_tries=3
+
+    # has_connectivity is a return value; zero if connection succeeds
+    ping -c1 polyprog.epfl.ch >/dev/null 2>&1
+    local has_connectivity=$?
+
+    while [ "$has_connectivity" -ne 0 ] && [ "$n_tries" -lt "$max_tries" ]; do
+        log_action_cont_msg " waiting ($n_tries / $max_tries)"
+        sleep 3
+        ping -c1 polyprog.epfl.ch >/dev/null 2>&1
+        has_connectivity=$?
         n_tries=$((n_tries + 1))
-        log_action_cont_msg " waiting ($n_tries / 3)"
-        sleep 2
     done
 
-    [ "$n_tries" -lt 2 ]
-    local has_connectivity=$?
     log_action_end_msg $has_connectivity
     return $has_connectivity
 }
