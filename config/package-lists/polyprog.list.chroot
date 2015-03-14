@@ -31,6 +31,7 @@ libgl1-mesa-dri
 gtk2-engines gtk2-engines-pixbuf
 xdg-utils
 zenity
+xtrlock
 
 # Utilities
 bash-completion
