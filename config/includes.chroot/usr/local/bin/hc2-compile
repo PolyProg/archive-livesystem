@@ -9,25 +9,34 @@ import sys
 
 FLAGS = {
     "c":     ['-Wall', '-O2', '-pipe', '-static'],
-    "cpp":   ['-Wall', '-O2', '-pipe', '-static'],
-    "c11":   ['-Wall', '-O2', '-pipe', '-static', '-std=c++11', '-x', 'c++'],
+    "cpp":   ['-Wall', '-O2', '-pipe', '-static', '-std=c++11', '-x', 'c++'],
+    "c0x":   ['-Wall', '-O2', '-pipe', '-static', '-x', 'c++'],
     "java":  ['-d', '.'],
+    "py":    [],
+    "py3":   [],
+    "rb":    ['-c'],
     "scala": []
 }
 
 LIBS = {
     "c":     ['-lm'],
     "cpp":   [],
-    "c11":   [],
+    "c0x":   [],
     "java":  [],
+    "py":    [],
+    "py3":   [],
+    "rb":    [],
     "scala": []
 }
 
 COMPILER = {
     "c":     ['gcc'],
     "cpp":   ['g++'],
-    "c11":   ['g++'],
+    "c0x":   ['g++'],
     "java":  ['javac'],
+    "py":    ['true'],
+    "py3":   ['true'],
+    "rb":    ['ruby'],
     "scala": ['scalac']
 }
 
@@ -39,10 +48,9 @@ sourcefile = sys.argv[1]
 
 SOURCEFILE_RE = re.compile(r"""
     ^
-    (.*?) /?                   # an optional path
-    ([^/]+)                    # the base name of the program
-    ([123])                    # a digit indicating the subproblem
-    \. (c|cpp|c11|scala|java)  # the file extension
+    (.*?) /?                             # an optional path
+    ([^/]+)                              # the base name of the program
+    \. (c|cpp|c0x|py|py3|rb|scala|java)  # the file extension
     $""", re.VERBOSE)
 m = SOURCEFILE_RE.match(sourcefile)
 if not m:
@@ -50,23 +58,16 @@ if not m:
     print >>sys.stderr, "I cannot make sense of it unless it is in the following format:"
     print >>sys.stderr, SOURCEFILE_RE.pattern
     sys.exit(1)
-sourcedir, sourcebase, sourcedigit, sourceext = m.groups()
+sourcedir, sourcebase, sourceext = m.groups()
+files = ["%s.%s" % (sourcebase, sourceext)]
 
 # perform the compilation
 if sourcedir != "":
     os.chdir(sourcedir)
-if sourceext in ['c', 'cpp', 'c11']:
-    files = [
-            '%s%s.%s' % (sourcebase, sourcedigit, sourceext),
-            '%sLib%s.%s' % (sourcebase, sourcedigit, sourceext)
-            ]
+if sourceext in ['c', 'cpp', 'c0x']:
     command = COMPILER[sourceext] + FLAGS[sourceext] + \
-              ['-o', sourcebase + sourcedigit] + files + LIBS[sourceext]
-elif sourceext in ['java', 'scala']:
-    files = [
-            '%s%s.%s' % (sourcebase, sourcedigit, sourceext),
-            '%sLib%s.%s' % (sourcebase, sourcedigit, sourceext)
-            ]
+              ['-o', sourcebase] + files + LIBS[sourceext]
+elif sourceext in ['java', 'py', 'py3', 'rb', 'scala']:
     command = COMPILER[sourceext] + FLAGS[sourceext] + files + LIBS[sourceext]
 
 for f in files:
@@ -82,4 +83,4 @@ except subprocess.CalledProcessError as e:
     sys.exit(e.returncode)
 
 print >>sys.stderr, "Compilation was successful. Run your program using:"
-print >>sys.stderr, "hc2-run " + (sourcedir + "/" if sourcedir != "" else "") + sourcebase + sourcedigit + "." + sourceext
+print >>sys.stderr, "hc2-run " + (sourcedir + "/" if sourcedir != "" else "") + sourcebase + "." + sourceext

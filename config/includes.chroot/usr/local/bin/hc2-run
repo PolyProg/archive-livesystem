@@ -12,6 +12,12 @@ ARGS = {
     "scala": ['-J-Xrs', '-J-Xss8m', '-J-Xmx393216k']
 }
 
+INTERPRETER = {
+    "py":   ['python'],
+    "py3":  ['python3'],
+    "rb":   ['ruby']
+}
+
 # Analyze the file that the user specified
 if len(sys.argv) <= 1:
     print >>sys.stderr, "usage: hc2-run <sourcefile>"
@@ -20,10 +26,9 @@ sourcefile = sys.argv[1]
 
 SOURCEFILE_RE = re.compile(r"""
     ^
-    (.*?) /?                   # an optional path
-    ([^/]+)                    # the base name of the program
-    ([123])                    # a digit indicating the subproblem
-    \. (c|cpp|c11|scala|java)  # the file extension
+    (.*?) /?                             # an optional path
+    ([^/]+)                              # the base name of the program
+    \. (c|cpp|c0x|py|py3|rb|scala|java)  # the file extension
     $""", re.VERBOSE)
 m = SOURCEFILE_RE.match(sourcefile)
 if not m:
@@ -31,14 +36,16 @@ if not m:
     print >>sys.stderr, "I cannot make sense of it unless it is in the following format:"
     print >>sys.stderr, SOURCEFILE_RE.pattern
     sys.exit(1)
-sourcedir, sourcebase, sourcedigit, sourceext = m.groups()
+sourcedir, sourcebase, sourceext = m.groups()
 
 if sourcedir != "":
     os.chdir(sourcedir)
-if sourceext in ['c', 'cpp', 'c11']:
-    command = ["./" + sourcebase + sourcedigit] + sys.argv[2:]
+if sourceext in ['c', 'cpp', 'c0x']:
+    command = ["./" + sourcebase] + sys.argv[2:]
 elif sourceext in ['java', 'scala']:
-    command = [sourceext] + ARGS[sourceext] + [sourcebase + 'Lib' + sourcedigit]
+    command = [sourceext] + ARGS[sourceext] + [sourcebase]
+elif sourceext in ['py', 'py3', 'rb']:
+    command = INTERPRETER[sourceext] + [sourcebase + '.' + sourceext]
 
 try:
     print >>sys.stderr, " ".join(command)
