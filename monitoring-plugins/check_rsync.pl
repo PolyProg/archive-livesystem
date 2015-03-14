@@ -67,6 +67,7 @@ my $command = qq{
     --rsh="ssh -q $ssh_identity $ssh_config" \\
     --archive \\
     --delete \\
+    --no-human-readable \\
     'root\@$hostname:$remote_path' \\
     '$backup_path/$hostname' \\
     2>&1
