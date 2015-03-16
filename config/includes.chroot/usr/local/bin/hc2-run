@@ -8,8 +8,8 @@ import subprocess
 import sys
 
 ARGS = {
-    "java":  ['-Xrs', '-Xss8m', '-Xmx393216k'],
-    "scala": ['-J-Xrs', '-J-Xss8m', '-J-Xmx393216k']
+    "java":  ['-Xrs', '-Xmx393216k'],
+    "scala": ['-J-Xrs', '-J-Xmx393216k']
 }
 
 INTERPRETER = {
@@ -28,7 +28,7 @@ SOURCEFILE_RE = re.compile(r"""
     ^
     (.*?) /?                             # an optional path
     ([^/]+)                              # the base name of the program
-    \. (c|cpp|c0x|py|py3|rb|scala|java)  # the file extension
+    \. (c|cpp|c98|py|py3|rb|scala|java)  # the file extension
     $""", re.VERBOSE)
 m = SOURCEFILE_RE.match(sourcefile)
 if not m:
@@ -40,7 +40,7 @@ sourcedir, sourcebase, sourceext = m.groups()
 
 if sourcedir != "":
     os.chdir(sourcedir)
-if sourceext in ['c', 'cpp', 'c0x']:
+if sourceext in ['c', 'cpp', 'c98']:
     command = ["./" + sourcebase] + sys.argv[2:]
 elif sourceext in ['java', 'scala']:
     command = [sourceext] + ARGS[sourceext] + [sourcebase]

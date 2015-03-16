@@ -10,7 +10,7 @@ import sys
 FLAGS = {
     "c":     ['-Wall', '-O2', '-pipe', '-static'],
     "cpp":   ['-Wall', '-O2', '-pipe', '-static', '-std=c++11', '-x', 'c++'],
-    "c0x":   ['-Wall', '-O2', '-pipe', '-static', '-x', 'c++'],
+    "c98":   ['-Wall', '-O2', '-pipe', '-static', '-x', 'c++'],
     "java":  ['-d', '.'],
     "py":    [],
     "py3":   [],
@@ -21,7 +21,7 @@ FLAGS = {
 LIBS = {
     "c":     ['-lm'],
     "cpp":   [],
-    "c0x":   [],
+    "c98":   [],
     "java":  [],
     "py":    [],
     "py3":   [],
@@ -32,7 +32,7 @@ LIBS = {
 COMPILER = {
     "c":     ['gcc'],
     "cpp":   ['g++'],
-    "c0x":   ['g++'],
+    "c98":   ['g++'],
     "java":  ['javac'],
     "py":    ['true'],
     "py3":   ['true'],
@@ -50,7 +50,7 @@ SOURCEFILE_RE = re.compile(r"""
     ^
     (.*?) /?                             # an optional path
     ([^/]+)                              # the base name of the program
-    \. (c|cpp|c0x|py|py3|rb|scala|java)  # the file extension
+    \. (c|cpp|c98|py|py3|rb|scala|java)  # the file extension
     $""", re.VERBOSE)
 m = SOURCEFILE_RE.match(sourcefile)
 if not m:
@@ -64,7 +64,7 @@ files = ["%s.%s" % (sourcebase, sourceext)]
 # perform the compilation
 if sourcedir != "":
     os.chdir(sourcedir)
-if sourceext in ['c', 'cpp', 'c0x']:
+if sourceext in ['c', 'cpp', 'c98']:
     command = COMPILER[sourceext] + FLAGS[sourceext] + \
               ['-o', sourcebase] + files + LIBS[sourceext]
 elif sourceext in ['java', 'py', 'py3', 'rb', 'scala']:
