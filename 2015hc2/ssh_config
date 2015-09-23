@@ -4,3 +4,4 @@ Host hc2-*
     IdentityFile ~/polyprog/debianlive3/2015santa/id_polyproglive
     StrictHostKeyChecking no
     UserKnownHostsFile=/dev/null
+    ConnectTimeout=10
