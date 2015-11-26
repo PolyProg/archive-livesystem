@@ -1,26 +1,10 @@
 # Required for the live system
-policykit-1
-kbd console-data
 iproute
-user-setup
-sudo
-keyboard-configuration
+kbd console-setup keyboard-configuration
 locales
-
-# Wifi related packages
-firmware-linux
-wireless-tools
-wpasupplicant
-firmware-atheros
-firmware-brcm80211
-firmware-ipw2x00
-firmware-iwlwifi
-firmware-ralink
-firmware-realtek
-firmware-zd1211
-linux-wlan-ng-firmware
-linux-headers-amd64
-broadcom-sta-dkms
+policykit-1
+sudo
+user-setup
 
 # Desktop environment
 desktop-base
@@ -40,7 +24,7 @@ rsync
 bind9-host
 
 # Editors
-vim-gtk emacs geany scite gedit
+vim-gtk emacs geany scite
 
 # Python
 ipython
