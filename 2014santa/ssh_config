@@ -1,6 +1,0 @@
-# Hosts for programming competitions
-Host santa-* 192.168.*
-    User root
-    IdentityFile ~/polyprog/debianlive3/2014santa/id_polyproglive
-    StrictHostKeyChecking no
-    UserKnownHostsFile=/dev/null

@@ -1,7 +1,0 @@
-# Hosts for programming competitions
-Host swerc-*
-    User root
-    IdentityFile ~/polyprog/debianlive3/2015swerc/id_polyproglive
-    StrictHostKeyChecking no
-    UserKnownHostsFile=/dev/null
-    ConnectTimeout=10

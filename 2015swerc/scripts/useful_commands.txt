@@ -1,1 +1,0 @@
-./swerc_forall.sh "/etc/init.d/polyprog-firewall stop && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install unzip; /etc/init.d/polyprog-firewall start"
