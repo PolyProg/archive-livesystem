@@ -5,21 +5,14 @@
 *.iso
 
 # Debian live generated files
-/.build/
-/build.*
-/binary.*
-/binary/
-/cache/
-/chroot.*
-/chroot/
 .lock
-
-/config/binary
-/config/bootstrap
-/config/build
-/config/chroot
-/config/common
-/config/source
+*/config/binary
+*/config/bootstrap
+*/config/build
+*/config/chroot
+*/config/common
+*/config/source
+*/config/hooks/*/0*
 
 /live-image-*
 
@@ -32,3 +25,8 @@ id_rsync
 
 # Other SSH keys... it might be best if they are not on public github
 id_polyproglive
+
+
+# various other things
+.cache
+.vagrant

@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+lb config noauto \
+    --apt-http-proxy "http://localhost:3142" \
+    --apt-indices false \
+    --apt-recommends false \
+    --archive-areas "main contrib non-free" \
+    --bootappend-live "boot=live quiet noroot toram" \
+    --clean \
+    --distribution stable \
+    --iso-application "PolyProg Live" \
+    --iso-publisher "PolyProg" \
+    --iso-volume "PolyProg Live" \
+    --memtest none \
+    --firmware-chroot true \
+    --mirror-bootstrap http://localhost:3142/mirror.switch.ch/ftp/mirror/debian/ \
+    --mirror-chroot-security http://localhost:3142/security.debian.org/ \
+    --mirror-binary http://mirror.switch.ch/ftp/mirror/debian/ \
+    --mirror-binary-security http://security.debian.org/ \
+    "${@}"
