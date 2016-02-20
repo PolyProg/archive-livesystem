@@ -1,0 +1,42 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+"""
+This little script replaces a given entry in an ini file by another value
+"""
+
+import argparse
+from configparser import ConfigParser
+
+
+__author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Replaces values in an ini formatted file")
+    parser.add_argument(
+        "-s", "--section", action="append",
+        help="Section in which to replace the value, by default, will replace in all sections"
+    )
+    parser.add_argument("-e", "--entry", required=True, help="name of the entry to modify")
+    parser.add_argument("-v", "--value", required=True, help="new value for the entry")
+    parser.add_argument("-f", "--file", required=True, help="File in which to make the replacement")
+
+    return vars(parser.parse_args())
+
+
+def main(file, value, entry, section):
+    config = ConfigParser()
+    config.read(file)
+
+    if section is None:
+        section = config.sections()
+    for s in section:
+        config[s][entry] = '"{}"'.format(value)
+
+    with open(file, "w") as f:
+        config.write(f)
+
+
+if __name__ == "__main__":
+    main(**parse_args())

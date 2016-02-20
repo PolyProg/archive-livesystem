@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rm -r /etc/systemd/system/getty*
+sed -i s/^autologin-user=.*/\#autologin-user=/g /etc/lightdm/lightdm.conf

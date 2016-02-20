@@ -1,0 +1,10 @@
+live-boot
+live-config
+live-config-systemd
+
+# required for live user creation
+user-setup
+console-setup
+keyboard-configuration
+console-data
+locales

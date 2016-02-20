@@ -21,13 +21,15 @@ echo "deb-src http://httpredir.debian.org/debian jessie-updates main" >> /etc/ap
 # update
 apt-get update
 apt-get upgrade -y
-apt-get install -y live-build
+apt-get install -y live-build python3
 
 # setup build directory
-mkdir -p /home/vagrant/client/{auto,config}
-chown vagrant:vagrant /home/vagrant/client
+mkdir -p /home/vagrant/{client,server}/{auto,config}
+chown vagrant:vagrant /home/vagrant/{client,server}
 
 mount --rbind {,/home}/vagrant/client/auto
 mount --rbind {,/home}/vagrant/client/config
+mount --rbind {,/home}/vagrant/server/auto
+mount --rbind {,/home}/vagrant/server/config
 
 sh /vagrant/vagrant/install_live_build_with_uefi.sh

@@ -1,0 +1,11 @@
+Package: libreoffice-* gimp vlc xfburn exfalso evince orage pulseaudio
+Pin: version *
+Pin-Priority: -1
+
+Package: synaptic xterm modemmanager parted
+Pin: version *
+Pin-Priority: -1
+
+Package: speech-dispatcher system-config-printer tasksel xsane
+Pin: version *
+Pin-Priority: -1

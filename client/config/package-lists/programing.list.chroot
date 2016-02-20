@@ -1,1 +1,27 @@
-vim
+# shell
+bash-completion
+less
+
+# editors
+vim-gtk
+emacs
+geany
+
+# compilers / interpreters
+# C/C++
+g++
+gcc
+gdb
+
+# Java
+default-jdk
+
+# python
+python
+python3
+ipython
+ipython3
+
+# Ruby
+ruby
+

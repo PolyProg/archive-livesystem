@@ -1,7 +1,7 @@
 #!/bin/sh
 
 base_url="http://http.kali.org/pool/main/l/live-build/"
-package=`curl ${base_url} 2>/dev/null | grep ".deb" | tr \" "\n" | grep ".deb" | grep -v ">" | grep -v "kali" `
+package=`curl ${base_url} 2>/dev/null | grep ".deb" | tr \" "\n" | grep ".deb" | grep -v ">" | grep "kali"  | grep -v "cgi"`
 
 echo "Install live-build with UEFI support*"
 

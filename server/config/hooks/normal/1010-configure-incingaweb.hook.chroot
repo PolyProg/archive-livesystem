@@ -1,0 +1,53 @@
+#!/bin/sh
+
+ICINGAWEB_PASSWORD=`openssl rand -base64 32`
+ICINGA_PASSWORD=`openssl rand -base64 32`
+
+echo "${ICINGA_PASSWORD}" > /root/password_icinga
+echo "${ICINGAWEB_PASSWORD}" > /root/password_web
+
+PSQL_VERSION=`find / -name "postgres" | cut -d "/" -f 5`
+
+# setup correct directory permissions
+icingacli setup config directory --group icingaweb2
+
+# add default php timezone
+sed -i s/\;date.timezone\ =/date.timezone\ =\ \"Europe\\/Zurich\"/g /etc/php5/apache2/php.ini
+
+# generate default snakeoil certificate
+# TODO : would be good to generate a correct one instead
+make-ssl-cert generate-default-snakeoil
+
+sudo -u postgres /usr/lib/postgresql/${PSQL_VERSION}/bin/pg_ctl start -w -D /var/lib/postgresql/${PSQL_VERSION}/main -o "--config_file=/etc/postgresql/${PSQL_VERSION}/main/postgresql.conf"
+
+# setup postgres backend for icinga2
+sudo -u postgres psql -c "CREATE ROLE icinga2 WITH LOGIN PASSWORD '${ICINGA_PASSWORD}'";
+sudo -u postgres createdb -O icinga2 -E UTF8 -T template0 icinga2
+sudo -u postgres createlang plpgsql icinga2
+sudo -u postgres PGPASSWORD=${ICINGA_PASSWORD} psql -U icinga2 -d icinga2 -h 127.0.0.1 < /usr/share/icinga2-ido-pgsql/schema/pgsql.sql
+
+icinga2 feature enable ido-pgsql
+icinga2 feature enable command
+usermod -a -G nagios www-data
+
+# setup postgres backend for icingaweb2
+sudo -u postgres psql -c "CREATE USER icingaweb2 WITH PASSWORD '${ICINGAWEB_PASSWORD}';"
+sudo -u postgres createdb -O icingaweb2 -E UTF8 -T template0 icingaweb_db
+sudo -u postgres PGPASSWORD=${ICINGAWEB_PASSWORD} psql -d icingaweb_db -U icingaweb2 -h 127.0.0.1 < /usr/share/icingaweb2/etc/schema/pgsql.schema.sql
+
+# create admin
+pass=`openssl passwd -1 password`
+sudo -u postgres PGPASSWORD=${ICINGAWEB_PASSWORD} psql -d icingaweb_db -U icingaweb2 -h 127.0.0.1 -c "INSERT INTO icingaweb_user (name, active, password_hash) VALUES ('polyprog', 1, '${pass}');"
+
+# stop postgres server
+sudo -u postgres /usr/lib/postgresql/${PSQL_VERSION}/bin/pg_ctl stop -D /var/lib/postgresql/${PSQL_VERSION}/main
+
+# setup passwords
+/live-build/config/hooks/normal/helpers/ini_replace -e password -v "${ICINGAWEB_PASSWORD}" -s icingaweb_db -f /etc/icingaweb2/resources.ini
+/live-build/config/hooks/normal/helpers/ini_replace -e password -v "${ICINGA_PASSWORD}" -s icinga_ido -f /etc/icingaweb2/resources.ini
+
+sed -i s/password\ \=.*/"password = \"${ICINGA_PASSWORD}\","/g /etc/icinga2/features-available/ido-pgsql.conf
+
+# enable modules
+mkdir -p /etc/icingaweb2/enabledModules
+ln -s /usr/share/icingaweb2/modules/monitoring /etc/icingaweb2/enabledModules/monitoring

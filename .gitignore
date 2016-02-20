@@ -1,5 +1,6 @@
-# Vim
+# IDE and editors
 .*.swp
+.idea
 
 # Debian live output files
 *.iso
@@ -26,7 +27,7 @@ id_rsync
 # Other SSH keys... it might be best if they are not on public github
 id_polyproglive
 
-
 # various other things
 .cache
 .vagrant
+

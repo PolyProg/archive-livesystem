@@ -16,8 +16,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, path: "vagrant/bootstrap.sh"
 
   config.vm.provider :libvirt do |domain|
-    domain.memory = 8192
-	domain.cpus = 6
+    domain.memory = 2048
+	domain.cpus = 2
   end
 
   # Disable automatic box update checking. If you disable this, then

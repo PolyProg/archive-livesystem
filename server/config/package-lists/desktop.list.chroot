@@ -15,6 +15,11 @@ xfce4-panel
 xfce4-whiskermenu-plugin
 xfce4-terminal
 gnome-icon-theme
+network-manager-gnome
+
+# Display Manager
+lightdm
+light-locker
 
 # utilities
 thunar

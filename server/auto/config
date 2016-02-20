@@ -7,7 +7,7 @@ lb config noauto \
     --apt-indices false \
     --apt-recommends false \
     --archive-areas "main contrib non-free" \
-    --bootappend-live "boot=live quiet noroot toram" \
+    --bootappend-live "boot=live live-config.noautologin quiet noroot toram" \
     --clean \
     --distribution testing \
     --iso-application "PolyProg Live" \
