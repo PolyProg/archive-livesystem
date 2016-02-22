@@ -1,4 +1,5 @@
 # X server
+lightdm
 xserver-xorg
 xinit
 desktop-base

@@ -12,12 +12,20 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "debian/jessie64"
+  config.vm.box = "debian/contrib-jessie64"
   config.vm.provision :shell, path: "vagrant/bootstrap.sh"
 
+  config.vm.provider "virtualbox" do |v|
+    v.name = "HC2 live builder"
+  end
+
   config.vm.provider :libvirt do |domain|
-    domain.memory = 2048
+    domain.memory = 4096
 	domain.cpus = 2
+  end
+
+  config.vm.provider "virtualbox" do |v|
+    v.customize ["modifyvm", :id, "--nictype1", "virtio"]
   end
 
   # Disable automatic box update checking. If you disable this, then
@@ -28,7 +36,7 @@ Vagrant.configure(2) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", host: 3142, guest: 3142
+  # config.vm.network "forwarded_port", host: 8080, guest: 80
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.

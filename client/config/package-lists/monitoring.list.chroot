@@ -1,2 +1,4 @@
 openssh-server
 sudo
+
+salt-minion
