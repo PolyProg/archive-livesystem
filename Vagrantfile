@@ -15,13 +15,15 @@ Vagrant.configure(2) do |config|
   config.vm.box = "debian/contrib-jessie64"
   config.vm.provision :shell, path: "vagrant/bootstrap.sh"
 
-  config.vm.provider "virtualbox" do |v|
-    v.name = "HC2 live builder"
-  end
-
-  config.vm.provider :libvirt do |domain|
+  config.vm.provider "virtualbox" do |domain|
+    domain.name = "HC2 live builder"
     domain.memory = 4096
 	domain.cpus = 2
+  end
+
+  config.vm.provider "libvirt" do |domain|
+	domain.memory = 16384
+	domain.cpus = 8
   end
 
   config.vm.provider "virtualbox" do |v|

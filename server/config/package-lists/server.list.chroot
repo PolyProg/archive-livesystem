@@ -5,9 +5,11 @@ libnss-mdns
 # monitoring
 postgresql
 php5-pgsql
-
 icinga2
 icinga2-ido-pgsql
-
 icingaweb2
 icingaweb2-module-monitoring
+
+# registration
+python3-flask
+python3-paramiko

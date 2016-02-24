@@ -3,20 +3,21 @@
 . /vagrant/env.default
 
 if [ -f /vagrant/env ]; then
-    source /vagrant/env
+    . /vagrant/env
 fi
 
 # Setup apt-cacher-ng
-nc -z 10.0.2.2 3142
+wget ${http_proxy} 2>&1 | grep "ERROR 406" 
 if [ $? -eq 0 ]; then
 	echo "Host has a working apt-cacher daemon, using the host's one"
     echo "Acquire::http::proxy \"${http_proxy}\";" > /etc/apt/apt.conf.d/01proxy
 else
 	echo "Could not find a working apt proxy, installing one locally"
+	unset http_proxy
 	apt-get update > /dev/null
 	apt-get install -y apt-cacher-ng
     echo "Acquire::http::proxy \"http://127.0.0.1:3142\";" > /etc/apt/apt.conf.d/01proxy
-    http_proxy="http://10.0.2.2:3142"
+    http_proxy="http://127.0.0.1:3142"
 fi
 
 

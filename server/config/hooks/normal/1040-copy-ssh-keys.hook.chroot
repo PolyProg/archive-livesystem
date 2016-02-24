@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "WAITING"
+/bin/bash
+. /etc/live/config
+
+mkdir -p "${LIVE_USERNAME}/.ssh"
+cp "/root/.ssh/id_rsa" "${LIVE_USERNAME}/.ssh/"
+cp "/root/.ssh/id_rsa.pub" "${LIVE_USERNAME}/.ssh/"

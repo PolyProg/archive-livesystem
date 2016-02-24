@@ -137,7 +137,7 @@ def clean(full_rebuild, build_path):
         run(["sudo", "lb", "clean"], cwd=build_path)
 
 
-def copy_server_keys(config, directory):
+def copy_server_keys(config):
     # salt keys
     if not os.path.exists(config["ssh_key"]):
         os.makedirs(os.path.dirname(config["ssh_key"]), exist_ok=True)
@@ -145,15 +145,14 @@ def copy_server_keys(config, directory):
         subprocess.check_call(
             ["ssh-keygen", "-t", "rsa", "-f", config["ssh_key"], "-C", "server@hc2.ch", "-P", ""]
         )
-
-    os.makedirs("{}/root/.ssh".format(directory), exist_ok=True)
-    shutil.copy(config["ssh_key"], "{}/root/.ssh/id_rsa".format(directory))
-    shutil.copy(config["ssh_key"] + ".pub", "{}/root/.ssh/id_rsa.pub".format(directory))
+    os.makedirs("server/config/includes.chroot/root/.ssh", exist_ok=True)
+    shutil.copy(config["ssh_key"], "server/config/includes.chroot/root/.ssh/id_rsa")
+    shutil.copy(config["ssh_key"] + ".pub", "server/config/includes.chroot/root/.ssh/id_rsa.pub")
 
 
 def copy_key_to_client(config):
-    os.makedirs("client/root/.ssh", exist_ok=True)
-    shutil.copy(config["ssh_key"] + ".pub", "client/root/.ssh/authorized_keys")
+    os.makedirs("client/includes.chroot/root/.ssh", exist_ok=True)
+    shutil.copy(config["ssh_key"] + ".pub", "client/includes.chroot/root/.ssh/authorized_keys")
 
 
 def build(path, full_rebuild, config):
@@ -187,7 +186,7 @@ def main(server, client, config, full, **kwargs):
             configuration[section][entry] = str(kwargs[entry])
 
     if server:
-        copy_server_keys(configuration["server"], "server")
+        copy_server_keys(configuration["server"])
         build("server", full, configuration)
 
     if client:

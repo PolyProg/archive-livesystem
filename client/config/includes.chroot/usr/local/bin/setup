@@ -23,8 +23,8 @@ def validate(entry):
 
     sanitized_entry = entry.get().encode("punycode")
 
-    subprocess.check_call(["hostnamectl", "set-hostname", "hc2-" + sanitized_entry])
-    requests.put("polyprog-server.local")
+    subprocess.check_call(["hostnamectl", "set-hostname", "plg-" + sanitized_entry])
+    requests.put("polyprog-server.local", port=5000)
 
 
 def main():

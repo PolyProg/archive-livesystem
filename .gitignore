@@ -30,4 +30,8 @@ id_polyproglive
 # various other things
 .cache
 .vagrant
-*/opt/
+env
+.livesystem.config
+
+**/opt
+**/.ssh
