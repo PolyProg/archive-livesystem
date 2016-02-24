@@ -27,7 +27,7 @@ echo "deb-src http://mirror.switch.ch/ftp/mirror/debian/ jessie-updates main" >>
 # update
 apt-get update
 apt-get upgrade -y
-apt-get install -y python3 python3-requests
+apt-get install -y python3 python3-requests vim
 
 # setup build directory
 mkdir -p /home/vagrant/client/auto /home/vagrant/client/config /home/vagrant/server/auto /home/vagrant/server/config

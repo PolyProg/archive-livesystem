@@ -109,8 +109,6 @@ def get_external_package(config, build_path, rebuild=False):
     if rebuild:
         with suppress(FileNotFoundError):
             shutil.rmtree(os.path.join(extract_path, config.name))
-        with suppress(FileNotFoundError):
-            shutil.rmtree(config.get("cache", ".cache"))
 
     if os.path.exists(os.path.join(extract_path, config.name)):
         return
@@ -123,12 +121,7 @@ def get_external_package(config, build_path, rebuild=False):
     shutil.unpack_archive(filepath, extract_path)
 
 
-def build(path, full_rebuild, config):
-    build_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
-    logger.setLevel(int(config[path]["verbosity"]))
-
-    logging.info("Building " + path)
-
+def clean(full_rebuild, build_path):
     if full_rebuild or not os.path.exists(os.path.join(build_path, "binary")):
         logger.log(VERBOSE, "Full rebuild needed, cleaning up files")
         for folder in ["normal", "live"]:
@@ -142,6 +135,34 @@ def build(path, full_rebuild, config):
     else:
         logger.log(VERBOSE, "No full rebuild needed")
         run(["sudo", "lb", "clean"], cwd=build_path)
+
+
+def copy_server_keys(config, directory):
+    # salt keys
+    if not os.path.exists(config["ssh_key"]):
+        os.makedirs(os.path.dirname(config["ssh_key"]), exist_ok=True)
+        logging.warning("No ssh keys found, creating new ones")
+        subprocess.check_call(
+            ["ssh-keygen", "-t", "rsa", "-f", config["ssh_key"], "-C", "server@hc2.ch", "-P", ""]
+        )
+
+    os.makedirs("{}/root/.ssh".format(directory), exist_ok=True)
+    shutil.copy(config["ssh_key"], "{}/root/.ssh/id_rsa".format(directory))
+    shutil.copy(config["ssh_key"] + ".pub", "{}/root/.ssh/id_rsa.pub".format(directory))
+
+
+def copy_key_to_client(config):
+    os.makedirs("client/root/.ssh", exist_ok=True)
+    shutil.copy(config["ssh_key"] + ".pub", "client/root/.ssh/authorized_keys")
+
+
+def build(path, full_rebuild, config):
+    build_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
+    logger.setLevel(int(config[path]["verbosity"]))
+
+    logging.info("Building " + path)
+
+    clean(full_rebuild, build_path)
 
     for package in config.getlist(path, "external_packages", fallback=[]):
         get_external_package(config[package], build_path, full_rebuild)
@@ -166,9 +187,11 @@ def main(server, client, config, full, **kwargs):
             configuration[section][entry] = str(kwargs[entry])
 
     if server:
+        copy_server_keys(configuration["server"], "server")
         build("server", full, configuration)
 
     if client:
+        copy_key_to_client(configuration["client"])
         build("client", full, configuration)
 
 

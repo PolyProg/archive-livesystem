@@ -2,7 +2,7 @@ Package: libreoffice-* gimp vlc xfburn exfalso evince orage pulseaudio
 Pin: version *
 Pin-Priority: -1
 
-Package: network-manager synaptic xterm modemmanager parted
+Package: network-manager synaptic xterm modemmanager parted ifupdown
 Pin: version *
 Pin-Priority: -1
 

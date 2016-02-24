@@ -1,0 +1,5 @@
+update-alternatives --install /usr/share/images/desktop-base/desktop-background desktop-background /usr/share/backgrounds/polyprog.png 10
+update-alternatives --install /usr/share/images/desktop-base/desktop-splash desktop-splash /usr/share/backgrounds/polyprog.png 10
+
+update-alternatives --set desktop-background /usr/share/backgrounds/polyprog.png
+update-alternatives --set desktop-splash /usr/share/backgrounds/polyprog.png

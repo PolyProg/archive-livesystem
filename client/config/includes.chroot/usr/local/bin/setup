@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+
+import requests
+import tkinter
+
+import subprocess
+
+
+class FullScreenWindow(tkinter.Tk):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.attributes("-zoomed", True)
+        self.attributes("-fullscreen", True)
+        self.protocol("WM_DELETE_WINDOW", self.do_nothing)
+
+    def do_nothing(self):
+        pass
+
+
+def validate(entry):
+    if entry.get() == "":
+        return
+
+    sanitized_entry = entry.get().encode("punycode")
+
+    subprocess.check_call(["hostnamectl", "set-hostname", "hc2-" + sanitized_entry])
+    requests.put("polyprog-server.local")
+
+
+def main():
+    tk = FullScreenWindow()
+
+    frame = tkinter.Frame(tk)
+
+    label = tkinter.Label(frame, text="Please enter your team name :", font={None, None, 100})
+    entry = tkinter.Entry(frame, font={None, None, 100})
+
+    button = tkinter.Button(frame, text="Validate", command=lambda: validate(entry), font={None, None, 100})
+    tk.bind("<Return>", lambda x: validate(entry))
+
+    label.grid(row=0, pady=10)
+    entry.grid(row=1, pady=10)
+    button.grid(row=2, pady=10)
+    entry.focus_set()
+
+    frame.place(relx=.5, rely=.5, anchor="c")
+
+    tk.mainloop()
+
+if __name__ == "__main__":
+    main()

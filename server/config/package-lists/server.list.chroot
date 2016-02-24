@@ -1,5 +1,6 @@
 sudo
 vim
+libnss-mdns
 
 # monitoring
 postgresql
@@ -10,6 +11,3 @@ icinga2-ido-pgsql
 
 icingaweb2
 icingaweb2-module-monitoring
-
-# salt
-salt-master
