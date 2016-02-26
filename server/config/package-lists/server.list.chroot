@@ -1,6 +1,10 @@
 sudo
 vim
 libnss-mdns
+openssh-server
+
+# needed for network connectivity
+arping
 
 # monitoring
 postgresql
@@ -9,7 +13,13 @@ icinga2
 icinga2-ido-pgsql
 icingaweb2
 icingaweb2-module-monitoring
+monitoring-plugins
 
 # registration
 python3-flask
 python3-paramiko
+
+
+# miscellaneous
+tmux
+bash-completion

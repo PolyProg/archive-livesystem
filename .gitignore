@@ -35,3 +35,4 @@ env
 
 **/opt
 **/.ssh
+server/**/contest.png

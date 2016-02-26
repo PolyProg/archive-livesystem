@@ -18,6 +18,8 @@ sed -i s/\;date.timezone\ =/date.timezone\ =\ \"Europe\\/Zurich\"/g /etc/php5/ap
 # TODO : would be good to generate a correct one instead
 make-ssl-cert generate-default-snakeoil
 
+mkdir -p /var/run/postgresql
+chown -R postgres:postgres /var/run/postgres
 sudo -u postgres /usr/lib/postgresql/${PSQL_VERSION}/bin/pg_ctl start -w -D /var/lib/postgresql/${PSQL_VERSION}/main -o "--config_file=/etc/postgresql/${PSQL_VERSION}/main/postgresql.conf"
 
 # setup postgres backend for icinga2
@@ -46,7 +48,7 @@ sudo -u postgres /usr/lib/postgresql/${PSQL_VERSION}/bin/pg_ctl stop -D /var/lib
 /live-build/config/hooks/normal/helpers/ini_replace -e password -v "${ICINGAWEB_PASSWORD}" -s icingaweb_db -f /etc/icingaweb2/resources.ini
 /live-build/config/hooks/normal/helpers/ini_replace -e password -v "${ICINGA_PASSWORD}" -s icinga_ido -f /etc/icingaweb2/resources.ini
 
-sed -i s/password\ \=.*/"password = \"${ICINGA_PASSWORD}\","/g /etc/icinga2/features-available/ido-pgsql.conf
+/live-build/config/hooks/normal/helpers/password_replace -p "${ICINGA_PASSWORD}" -f /etc/icinga2/features-available/ido-pgsql.conf
 
 # enable modules
 mkdir -p /etc/icingaweb2/enabledModules

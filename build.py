@@ -137,7 +137,7 @@ def clean(full_rebuild, build_path):
         run(["sudo", "lb", "clean"], cwd=build_path)
 
 
-def copy_server_keys(config):
+def copy_server_files(config):
     # salt keys
     if not os.path.exists(config["ssh_key"]):
         os.makedirs(os.path.dirname(config["ssh_key"]), exist_ok=True)
@@ -149,10 +149,13 @@ def copy_server_keys(config):
     shutil.copy(config["ssh_key"], "server/config/includes.chroot/root/.ssh/id_rsa")
     shutil.copy(config["ssh_key"] + ".pub", "server/config/includes.chroot/root/.ssh/id_rsa.pub")
 
+    if config.get("background", None) and os.path.exists(config["background"]):
+        shutil.copy(config["background"], "server/config/includes.chroot/usr/share/backgrounds/contest.png")
 
-def copy_key_to_client(config):
-    os.makedirs("client/includes.chroot/root/.ssh", exist_ok=True)
-    shutil.copy(config["ssh_key"] + ".pub", "client/includes.chroot/root/.ssh/authorized_keys")
+
+def copy_key_to_client(key):
+    os.makedirs("client/config/includes.chroot/root/.ssh", exist_ok=True)
+    shutil.copy(key, "client/config/includes.chroot/root/.ssh/authorized_keys")
 
 
 def build(path, full_rebuild, config):
@@ -186,11 +189,11 @@ def main(server, client, config, full, **kwargs):
             configuration[section][entry] = str(kwargs[entry])
 
     if server:
-        copy_server_keys(configuration["server"])
+        copy_server_files(configuration["server"])
         build("server", full, configuration)
 
     if client:
-        copy_key_to_client(configuration["client"])
+        copy_key_to_client(configuration["client"]["ssh_key"] + ".pub")
         build("client", full, configuration)
 
 

@@ -1,0 +1,9 @@
+[Unit]
+Description=Registration service for HC2
+After=network.target
+
+[Service]
+ExecStart=/opt/registration/server.py --host 0.0.0.0
+
+[Install]
+WantedBy=multi-user.target

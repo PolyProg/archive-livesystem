@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import socket
 
 import requests
 import tkinter
@@ -17,17 +20,39 @@ class FullScreenWindow(tkinter.Tk):
         pass
 
 
-def validate(entry):
+def validate(entry, root):
     if entry.get() == "":
         return
 
-    sanitized_entry = entry.get().encode("punycode")
+    old_hostname = socket.gethostname()
 
-    subprocess.check_call(["hostnamectl", "set-hostname", "plg-" + sanitized_entry])
-    requests.put("polyprog-server.local", port=5000)
+    sanitized_entry = b"plg-" + entry.get().encode("punycode").strip(b"-") + b".local"
+
+    try:
+        requests.put("http://polyprog-server.local:5000/register")
+    except:
+        # FIXME : we NEED to handle this
+        pass
+
+    subprocess.check_call(["hostnamectl", "set-hostname", sanitized_entry])
+
+    with open("/etc/hosts", "r") as f:
+        hostfile = f.readlines()
+
+    with open("/etc/hosts", "w") as f:
+        for line in hostfile:
+            if old_hostname in line:
+                line = line.replace(old_hostname, sanitized_entry.decode("utf-8"))
+            f.write(line)
+
+    root.destroy()
+    subprocess.call(["systemctl", "restart", "lightdm"])
 
 
 def main():
+    if socket.gethostname() != "polyprog-live.local":
+        return
+
     tk = FullScreenWindow()
 
     frame = tkinter.Frame(tk)
@@ -35,8 +60,8 @@ def main():
     label = tkinter.Label(frame, text="Please enter your team name :", font={None, None, 100})
     entry = tkinter.Entry(frame, font={None, None, 100})
 
-    button = tkinter.Button(frame, text="Validate", command=lambda: validate(entry), font={None, None, 100})
-    tk.bind("<Return>", lambda x: validate(entry))
+    button = tkinter.Button(frame, text="Validate", command=lambda: validate(entry, tk), font={None, None, 100})
+    tk.bind("<Return>", lambda x: validate(entry, tk))
 
     label.grid(row=0, pady=10)
     entry.grid(row=1, pady=10)

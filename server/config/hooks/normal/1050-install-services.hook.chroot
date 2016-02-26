@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mkdir -p /etc/systemd/system/multi-user.targets.wants/
+ln -s /etc/systemd/system/registration.service /etc/systemd/system/multi-user.target.wants/registration.service
