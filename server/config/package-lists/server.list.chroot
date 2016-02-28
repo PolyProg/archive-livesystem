@@ -14,6 +14,8 @@ icinga2-ido-pgsql
 icingaweb2
 icingaweb2-module-monitoring
 monitoring-plugins
+libnagios-plugin-perl
+rsync
 
 # registration
 python3-flask

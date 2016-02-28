@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+import os
+import shutil
+
+
+__author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
+
+
+user = "nagios"
+nagios_ssh_directory = "/var/lib/nagios/.ssh"
+backup_directory = "/media/backup"
+
+data = """
+object CheckCommand "rsync" {{
+  import "plugin-check-command"
+
+  command = [ PluginDir + "/check_rsync" ]
+
+  arguments = {{
+    "-H" = "$rsync_host$"
+    "-r" = "/home/polyprog"
+    "-b" = "{backup}"
+    "-i" = "{nagios}/id_rsa"
+    "-F" = "{nagios}/config"
+  }}
+
+  vars.rsync_host = "$host.name$.local"
+  vars.host_name = "$host.name$"
+}}
+""".format(backup=backup_directory, nagios=nagios_ssh_directory)
+
+
+nagios_config = """
+Host plg-*
+    User root
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
+"""
+
+with open("/etc/icinga2/conf.d/commands.conf", "a") as f:
+    f.write(data)
+
+
+os.makedirs(nagios_ssh_directory)
+os.makedirs(backup_directory)
+
+shutil.copy("/root/.ssh/id_rsa", os.path.join(nagios_ssh_directory))
+
+with open(os.path.join(nagios_ssh_directory, "config"), "w") as f:
+    f.write(nagios_config)
+
+shutil.chown(backup_directory, user, user)
+shutil.chown(nagios_ssh_directory, user, user)
+shutil.chown(os.path.join(nagios_ssh_directory, "id_rsa"), user, user)
+shutil.chown(os.path.join(nagios_ssh_directory, "config"), user, user)

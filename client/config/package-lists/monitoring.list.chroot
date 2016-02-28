@@ -2,6 +2,7 @@ openssh-server
 monitoring-plugins
 sudo
 libnss-mdns
+rsync
 
 #required for setup
 python3-requests

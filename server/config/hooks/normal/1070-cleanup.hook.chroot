@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rm /etc/icinga2/conf.d/apt.conf
