@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -eux
+
+readonly BASE_KS='polyprog-live.ks'
+readonly NAME='PolyProg-live'
+readonly FEDORA_VERSION='24'
+
+readonly FLAT_KS="flat-${BASE_KS}"
+
+# TODO maybe can remove virt-install libvirt-daemon-config-network
+dnf install lorax virt-install libvirt-daemon-config-network pykickstart \
+	    anaconda
+
+setenforce 0
+
+ksflatten --config "${BASE_KS}" --output "${FLAT_KS}" \
+	  --version "F${FEDORA_VERSION}"
+livemedia-creator --ks "${FLAT_KS}" \
+		  --project "${NAME}" --volid "${NAME}" --iso-name "${NAME}" \
+		  --title "${NAME}" \
+		  --releasever "${FEDORA_VERSION}" \
+		  --make-iso --iso-only --macboot \
+ 		  --no-virt  # TODO why needed? seems related to iso creation
+
