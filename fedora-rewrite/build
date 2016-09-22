@@ -2,7 +2,7 @@
 
 set -eux
 
-readonly BASE_KS='polyprog-live.ks'
+readonly BASE_KS='fedora-live-soas.ks'
 readonly NAME='PolyProg-live'
 readonly FEDORA_VERSION='24'
 
@@ -16,9 +16,9 @@ setenforce 0
 
 ksflatten --config "${BASE_KS}" --output "${FLAT_KS}" \
 	  --version "F${FEDORA_VERSION}"
-livemedia-creator --ks "${FLAT_KS}" \
-		  --project "${NAME}" --volid "${NAME}" --iso-name "${NAME}" \
-		  --title "${NAME}" \
+livemedia-creator --ks "$(realpath "${FLAT_KS}")" \
+		  --project 'Fedora-soas-Live' --volid 'Fedora-SoaS-f24' --iso-name 'Fedora-SoaS-f24.iso' \
+		  --title 'Fedora-SoaS-live' \
 		  --releasever "${FEDORA_VERSION}" \
 		  --make-iso --iso-only --macboot \
  		  --no-virt  # TODO why needed? seems related to iso creation

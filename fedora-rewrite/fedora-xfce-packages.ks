@@ -43,4 +43,12 @@ system-config-printer
 -aspell-*                   # dictionaries are big
 -xfce4-sensors-plugin
 
+## PolyProg
+
+# compiler / executor
+gcc
+jdk-1.8.0-openjdk-devel
+python2
+python3
+
 %end
