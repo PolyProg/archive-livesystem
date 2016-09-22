@@ -16,7 +16,7 @@ setenforce 0
 
 ksflatten --config "${BASE_KS}" --output "${FLAT_KS}" \
 	  --version "F${FEDORA_VERSION}"
-livemedia-creator --ks "$(realpath "${FLAT_KS}")" \
+livemedia-creator --ks "${FLAT_KS}" \
 		  --project 'Fedora-soas-Live' --volid 'Fedora-SoaS-f24' --iso-name 'Fedora-SoaS-f24.iso' \
 		  --title 'Fedora-SoaS-live' \
 		  --releasever "${FEDORA_VERSION}" \
