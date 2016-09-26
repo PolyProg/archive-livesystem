@@ -2,7 +2,7 @@
 
 # compiler / executor
 gcc
-jdk-1.8.0-openjdk-devel
+java-1.8.0-openjdk-devel
 python2
 python3
 ruby
