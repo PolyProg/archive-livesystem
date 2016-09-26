@@ -2,7 +2,7 @@
 
 set -eux
 
-readonly BASE_KS='fedora-live-xfce.ks'
+readonly BASE_KS='polyprog-client.ks'
 readonly NAME='PolyProg-live'
 readonly FEDORA_VERSION='24'
 

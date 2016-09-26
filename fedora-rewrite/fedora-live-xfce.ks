@@ -70,4 +70,3 @@ restorecon -R /home/liveuser
 EOF
 
 %end
-
