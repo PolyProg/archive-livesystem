@@ -9,8 +9,8 @@ readonly FEDORA_VERSION='24'
 readonly FLAT_KS="flat-${BASE_KS}"
 
 # TODO maybe can remove virt-install libvirt-daemon-config-network
-dnf install lorax virt-install libvirt-daemon-config-network pykickstart \
-	    anaconda
+dnf --assumeyes install \
+	lorax virt-install libvirt-daemon-config-network pykickstart anaconda
 
 setenforce 0
 
