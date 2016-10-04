@@ -7,18 +7,16 @@ python2
 python3
 ruby
 scala
-#clang TODO
 
 # debugger
 gdb
 ddd
-#jdb TODO
 pydb
 
 # dev tools
 inotify-tools
 make
-#xrandr TODO
+xorg-x11-server-utils
 #tup TODO
 
 # ide
@@ -27,15 +25,15 @@ emacs
 gedit
 geany
 nano
-vim
 scite
+vim
 #sublime text TODO
 #intellij TODO
 
 # other
 acpi
 avahi
-#setxkbmap
 firefox
+xorg-x11-xkb-utils
 
 %end
