@@ -34,6 +34,8 @@ vim
 acpi
 avahi
 firefox
+nss-mdns
+-sudo # we have a root pwd anyway
 xorg-x11-xkb-utils
 
 %end
