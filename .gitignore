@@ -32,3 +32,8 @@ id_rsync
 
 # Other SSH keys... it might be best if they are not on public github
 id_polyproglive
+
+
+anaconda/
+flat-*.ks
+*.log

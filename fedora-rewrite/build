@@ -2,6 +2,12 @@
 
 set -eux
 
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be run as root" 1>&2
+	exit 1
+fi
+
+
 readonly BASE_KS='polyprog-client.ks'
 readonly NAME='PolyProg-live'
 readonly FEDORA_VERSION='24'
@@ -23,3 +29,4 @@ livemedia-creator --ks "${FLAT_KS}" \
 		  --make-iso --iso-only --macboot \
  		  --no-virt  # TODO why needed? seems related to iso creation
 
+setenforce 1
