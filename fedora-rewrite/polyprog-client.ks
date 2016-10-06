@@ -1,7 +1,7 @@
 %include fedora-live-xfce.ks
 %include polyprog-client-packages.ks
 
-keyboard --vckeymap ch-fr --xlayouts='ch fr'
+keyboard --vckeymap ch-fr --xlayouts='ch (fr)'
 
 bootloader --append rd.live.ram
 
