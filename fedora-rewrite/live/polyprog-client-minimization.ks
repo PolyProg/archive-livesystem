@@ -1,26 +1,36 @@
 %packages
 
 -sudo # we have a root pwd anyway
--xscreensaver-extras
--anaconda
--transmission
+-@Sound and Video
+-@printing
+-@xfce-extra-plugins
+-@xfce-media
+-@xfce-office
 -ristretto
 -pidgin
--claws-mail
--firewalld
+-transmission
+-orage
+-yumex-dnf
+-smartmontools
+-blueman
+
+-xscreensaver-extras
 -xfce4-dict-plugin
 -xfce4-screenshooter-plugin
 -system-config-printer
--gnome-color-manager
--abiword
--open-vm-tools-desktop
--cups-client
--gutenprint
--samba-client
+-gnome-disk-utility
+
 -openssh-clients
 -openssh-askpass
--orage
--f24-backgrounds-gnome
+-open-vm-tools-desktop
+# -memtest86+ FIXME this is not feasible because of boot... see x86.tmpl ?
+%end
 
-# themes
+
+
+
+%post
+dnf remove -y claws-mail f24-backgrounds-gnome firewalld pulseaudio gnome-abrt
+
+dnf clean all
 %end
