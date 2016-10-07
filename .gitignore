@@ -1,6 +1,8 @@
 # Vim
 .*.swp
 
+.idea
+
 # Debian live output files
 *.iso
 

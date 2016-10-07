@@ -8,6 +8,14 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 
+: "${ROOTPW}"  # you need to set the root password
+
+
+SCRIPT=$(readlink -f "$0")
+export BASE_DIRECTORY=$(dirname "$SCRIPT")
+
+
+readonly BASE_KS_DIR='live'
 readonly BASE_KS='polyprog-client.ks'
 readonly NAME='PolyProg-live'
 readonly FEDORA_VERSION='24'
@@ -20,13 +28,14 @@ dnf --assumeyes install \
 
 setenforce 0
 
-ksflatten --config "${BASE_KS}" --output "${FLAT_KS}" \
+ksflatten --config "${BASE_KS_DIR}/${BASE_KS}" --output "${FLAT_KS}" \
 	  --version "F${FEDORA_VERSION}"
+
 livemedia-creator --ks "${FLAT_KS}" \
 		  --project "${NAME}" --volid "${NAME}" \
 		  --iso-name "${NAME}.iso" --title "${NAME}" \
 		  --releasever "${FEDORA_VERSION}" \
 		  --make-iso --iso-only --macboot \
- 		  --no-virt  # TODO why needed? seems related to iso creation
+ 		  --no-virt
 
 setenforce 1

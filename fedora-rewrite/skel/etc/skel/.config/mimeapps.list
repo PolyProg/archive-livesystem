@@ -1,0 +1,5 @@
+[Default Applications]
+text/plain=geany.desktop
+
+[Added Associations]
+text/plain=geany.desktop
