@@ -7,10 +7,6 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
-
-: "${ROOTPW}"  # you need to set the root password
-
-
 SCRIPT=$(readlink -f "$0")
 export BASE_DIRECTORY=$(dirname "$SCRIPT")
 

@@ -30,9 +30,10 @@
 -nfs-utils
 -xorg-x11-drv-wacom
 -xorg-x11-drv-vmware
-
 -openconnect
 -pulseaudio-libs
+-fedora-release-notes
+-xfce4-about
 # -memtest86+ FIXME this is not feasible because of boot... see x86.tmpl ?
 %end
 

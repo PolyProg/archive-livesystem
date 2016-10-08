@@ -6,6 +6,7 @@ salt-minion
 
 # UI
 xfce4-whiskermenu-plugin
+pyxtrlock
 
 
 # compiler / executor
@@ -34,6 +35,7 @@ geany
 nano
 scite
 vim
+vim-X11
 #sublime text TODO
 #intellij TODO
 

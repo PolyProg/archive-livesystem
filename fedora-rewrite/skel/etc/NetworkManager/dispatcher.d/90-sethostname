@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+
+import socket
+import sys
+import subprocess
+
+
+if len(sys.argv) < 3 or sys.argv[2] != "up":
+    exit(0)
+
+
+PREFIX = "plg-"
+
+
+with socket.socket() as sock:
+    sock.connect(("hc2.ch", 80))
+    hostname = "{}{}.local".format(PREFIX, sock.getsockname()[0].replace(".", "-"))
+
+if socket.gethostname() == hostname:
+    print("SET HOSTNAME : nothing to do")
+    exit(0)
+
+print("SET HOSTNAME: setting new hostname")
+subprocess.check_call(["setenforce", "0"])
+subprocess.check_call(["hostnamectl", "set-hostname", hostname])
+subprocess.check_call(["systemctl", "restart", "avahi-daemon"])
+subprocess.check_call(["systemctl", "start", "salt-minion"])
+subprocess.check_call(["setenforce", "1"])
