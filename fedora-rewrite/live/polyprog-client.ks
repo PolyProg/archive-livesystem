@@ -15,6 +15,8 @@ bootloader --append rd.live.ram=1
 # copy files to system
 rsync -raAHx $BASE_DIRECTORY/skel/* /mnt/sysimage/
 
+cp $BASE_DIRECTORY/packages/* /mnt/sysimage/tmp/
+
 %end
 
 
@@ -31,13 +33,25 @@ sed -i 's/^#user-session=.*/user-session=xfce/' /etc/lightdm/lightdm.conf
 
 
 ln -s /usr/lib/systemd/system/sshd.service /etc/systemd/system/multi-user.target.wants/
-
-chown root:root /etc/NetworkManager/dispatcher.d/90-sethostname
-chmod 755 /etc/NetworkManager/dispatcher.d/90-sethostname
+ln -s /usr/lib/systemd/system/salt-minion.service /etc/systemd/system/multi-user.target.wants/
+ln -s /usr/lib/systemd/system/systemd-timesyncd.service /etc/systemd/system/sysinit.target.wants/
 
 chown root:root /etc/polkit-1/rules.d/00-restrict.rules
 chown root:root /etc/salt/minion
 
 chown root:root -R /usr/local/sbin
 
+%end
+
+
+%post
+
+cd /tmp
+tar xzf Python-3.2.6.tgz
+cd Python-3.2.6
+./configure --prefix /opt/python3
+make install
+
+cd /tmp
+rpm -ivh ./gcc-4.9.rpm
 %end

@@ -11,6 +11,7 @@ pyxtrlock
 
 # compiler / executor
 gcc
+gcc-c++
 java-1.8.0-openjdk-devel
 python2
 python3
@@ -45,5 +46,6 @@ avahi
 firefox
 nss-mdns
 xorg-x11-xkb-utils
+evince
 
 %end

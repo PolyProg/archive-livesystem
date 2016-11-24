@@ -28,6 +28,7 @@
     <property name="plugin-4" type="string" value="pager"/>
     <property name="plugin-5" type="string" value="clock">
       <property name="mode" type="uint" value="2"/>
+      <property name="timezone" type="string" value="Europe/Zurich"/>
     </property>
     <property name="plugin-7" type="string" value="whiskermenu"/>
   </property>

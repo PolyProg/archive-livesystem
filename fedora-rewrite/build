@@ -20,7 +20,7 @@ readonly FLAT_KS="flat-${BASE_KS}"
 
 # TODO maybe can remove virt-install libvirt-daemon-config-network
 dnf --assumeyes install \
-	lorax virt-install libvirt-daemon-config-network pykickstart anaconda
+	lorax virt-install libvirt-daemon-config-network pykickstart anaconda livecd-tools
 
 setenforce 0
 

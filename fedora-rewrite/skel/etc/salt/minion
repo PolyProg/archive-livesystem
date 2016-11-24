@@ -1,4 +1,4 @@
-master: polyprog-monitor.local
+master: master.hc2.ch
 
 verify_env: True
 hash_type: sha256
