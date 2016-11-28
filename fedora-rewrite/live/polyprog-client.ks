@@ -8,7 +8,7 @@
 
 keyboard --vckeymap ch-fr --xlayouts='ch (fr)'
 
-bootloader --append rd.live.ram=1
+bootloader --location mbr --append="rd.live.ram=1"
 
 
 %post --nochroot
@@ -23,6 +23,7 @@ cp $BASE_DIRECTORY/packages/* /mnt/sysimage/tmp/
 %post
 
 useradd polyprog
+passwd polyprog -d
 
 # set up lightdm autologin
 sed -i 's/^#autologin-user=.*/autologin-user=polyprog/' /etc/lightdm/lightdm.conf
@@ -33,13 +34,19 @@ sed -i 's/^#user-session=.*/user-session=xfce/' /etc/lightdm/lightdm.conf
 
 
 ln -s /usr/lib/systemd/system/sshd.service /etc/systemd/system/multi-user.target.wants/
-ln -s /usr/lib/systemd/system/salt-minion.service /etc/systemd/system/multi-user.target.wants/
 ln -s /usr/lib/systemd/system/systemd-timesyncd.service /etc/systemd/system/sysinit.target.wants/
 
+chmod 755 /etc/NetworkManager/dispatcher.d/90-start-salt
+chown root:root /etc/NetworkManager/dispatcher.d/90-start-salt
 chown root:root /etc/polkit-1/rules.d/00-restrict.rules
 chown root:root /etc/salt/minion
 
 chown root:root -R /usr/local/sbin
+
+# make it so that the user's data is in ramYYY
+cat > /etc/fstab << EOF
+tmpfs   /home    tmpfs   defaults   0  0
+EOF
 
 %end
 
